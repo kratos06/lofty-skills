@@ -1,5 +1,5 @@
 ---
-name: aws-lambda-mcp
+name: aws-lambda
 description: AWS Lambda function management
 ---
 
@@ -7,70 +7,17 @@ description: AWS Lambda function management
 
 AWS Lambda function management
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with aws-lambda.
 
-```bash
-npm install -g @anthropic/mcp-aws-lambda
-```
+## Features
 
-### Step 2: Get API Credentials
+- aws
+- lambda
+- serverless
 
-Configure the required credentials below.
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "aws-lambda": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-aws-lambda"],
-      "env": {
-            "AWS_ACCESS_KEY_ID": "your-access-key",
-            "AWS_SECRET_ACCESS_KEY": "your-secret-key",
-            "AWS_REGION": "us-east-1"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available aws-lambda commands"
-```
-
----
-
-## Environment Variables
-
-- `AWS_ACCESS_KEY_ID`: Required - Your access-key
-- `AWS_SECRET_ACCESS_KEY`: Required - Your secret-key
-- `AWS_REGION`: us-east-1
-
-## Available Tools
-
-- `list_functions`
-- `invoke`
-- `get_function`
-- `create_function`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with aws-lambda"
-```
-
-## Documentation
-
-See @anthropic/mcp-aws-lambda documentation for more details.
 
 
 

@@ -1,5 +1,5 @@
 ---
-name: ollama-mcp
+name: ollama
 description: Ollama local LLM running and model management
 ---
 
@@ -7,66 +7,17 @@ description: Ollama local LLM running and model management
 
 Ollama local LLM running and model management
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with ollama.
 
-```bash
-npm install -g @anthropic/mcp-ollama
-```
+## Features
 
-### Step 2: Get API Credentials
+- ollama
+- llm
+- local
 
-Configure the required credentials below.
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "ollama": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-ollama"],
-      "env": {
-            "OLLAMA_HOST": "http://localhost:11434"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available ollama commands"
-```
-
----
-
-## Environment Variables
-
-- `OLLAMA_HOST`: http://localhost:11434
-
-## Available Tools
-
-- `generate`
-- `chat`
-- `list_models`
-- `pull_model`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with ollama"
-```
-
-## Documentation
-
-See @anthropic/mcp-ollama documentation for more details.
 
 ## Source
 

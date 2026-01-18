@@ -1,5 +1,5 @@
 ---
-name: chroma-mcp
+name: chroma
 description: ChromaDB embeddings database
 ---
 
@@ -7,68 +7,17 @@ description: ChromaDB embeddings database
 
 ChromaDB embeddings database
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with chroma.
 
-```bash
-npm install -g @anthropic/mcp-chroma
-```
+## Features
 
-### Step 2: Get API Credentials
+- chroma
+- embeddings
+- vector
 
-Configure the required credentials below.
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "chroma": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-chroma"],
-      "env": {
-            "CHROMA_HOST": "localhost",
-            "CHROMA_PORT": "8000"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available chroma commands"
-```
-
----
-
-## Environment Variables
-
-- `CHROMA_HOST`: localhost
-- `CHROMA_PORT`: 8000
-
-## Available Tools
-
-- `add`
-- `query`
-- `delete`
-- `get_collection`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with chroma"
-```
-
-## Documentation
-
-See @anthropic/mcp-chroma documentation for more details.
 
 
 

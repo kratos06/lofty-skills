@@ -1,5 +1,5 @@
 ---
-name: coinbase-mcp
+name: coinbase
 description: Coinbase cryptocurrency exchange
 ---
 
@@ -7,67 +7,17 @@ description: Coinbase cryptocurrency exchange
 
 Coinbase cryptocurrency exchange
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with coinbase.
 
-```bash
-npm install -g @anthropic/mcp-coinbase
-```
+## Features
 
-### Step 2: Get API Credentials
+- coinbase
+- crypto
+- exchange
 
-Get your credentials from: https://www.coinbase.com/settings/api
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "coinbase": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-coinbase"],
-      "env": {
-            "COINBASE_API_KEY": "your-api-key",
-            "COINBASE_API_SECRET": "your-api-secret"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available coinbase commands"
-```
-
----
-
-## Environment Variables
-
-- `COINBASE_API_KEY`: Required - Your api-key
-- `COINBASE_API_SECRET`: Required - Your api-secret
-
-## Available Tools
-
-- `list_accounts`
-- `get_price`
-- `create_transaction`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with coinbase"
-```
-
-## Documentation
-
-See @anthropic/mcp-coinbase documentation for more details.
 
 
 

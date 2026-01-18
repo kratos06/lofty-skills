@@ -1,5 +1,5 @@
 ---
-name: vault-mcp
+name: vault
 description: HashiCorp Vault secrets management and encryption
 ---
 
@@ -7,68 +7,17 @@ description: HashiCorp Vault secrets management and encryption
 
 HashiCorp Vault secrets management and encryption
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with vault.
 
-```bash
-npm install -g @anthropic/mcp-vault
-```
+## Features
 
-### Step 2: Get API Credentials
+- vault
+- secrets
+- security
 
-Configure the required credentials below.
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "vault": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-vault"],
-      "env": {
-            "VAULT_ADDR": "http://localhost:8200",
-            "VAULT_TOKEN": "your-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available vault commands"
-```
-
----
-
-## Environment Variables
-
-- `VAULT_ADDR`: http://localhost:8200
-- `VAULT_TOKEN`: Required - Your token
-
-## Available Tools
-
-- `read_secret`
-- `write_secret`
-- `list_secrets`
-- `delete_secret`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with vault"
-```
-
-## Documentation
-
-See @anthropic/mcp-vault documentation for more details.
 
 ## Source
 

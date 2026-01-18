@@ -1,76 +1,47 @@
 ---
-name: filesystem-mcp
+name: filesystem
 description: Local filesystem navigation, search, and file operations (Official)
 ---
 
-# filesystem-mcp
+# Filesystem Integration
 
 Local filesystem navigation, search, and file operations (Official)
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+## Commands
+
+### List directory
 
 ```bash
-npm install -g @modelcontextprotocol/server-filesystem
+ls -la /path/to/dir
 ```
 
-### Step 2: Get API Credentials
+### Read file
 
-Configure the required credentials below.
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "filesystem": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
-      "env": {
-            "ALLOWED_DIRECTORIES": "/path/to/allowed/dir"
-      }
-    }
-  }
-}
+```bash
+cat /path/to/file
 ```
 
-### Step 4: Verify Installation
+### Write file
 
-Restart Claude Code and test:
+```bash
+echo "content" > /path/to/file
 ```
-User: "List available filesystem commands"
+
+### Create directory
+
+```bash
+mkdir -p /path/to/new/dir
+```
+
+### Find files
+
+```bash
+find /path -name "*.txt"
 ```
 
 ---
-
-## Environment Variables
-
-- `ALLOWED_DIRECTORIES`: /path/to/allowed/dir
-
-## Available Tools
-
-- `read_file`
-- `write_file`
-- `list_directory`
-- `create_directory`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with filesystem"
-```
-
-## Documentation
-
-See @modelcontextprotocol/server-filesystem documentation for more details.
-
-## Source
-
-GitHub: https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem
 
 ## Author
 

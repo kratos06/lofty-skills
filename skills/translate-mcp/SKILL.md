@@ -1,73 +1,69 @@
 ---
-name: translate-mcp
+name: translate
 description: Translation services integration
 ---
 
-# translate-mcp
+# DeepL Translate Integration
 
 Translation services integration
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-translate
+export DEEPL_API_KEY="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://www.deepl.com/pro-api
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "translate": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-translate"],
-      "env": {
-            "DEEPL_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available translate commands"
-```
+https://www.deepl.com/pro-api
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `DEEPL_API_KEY`: Required - Your api-key
+**Base URL:** `https://api-free.deepl.com/v2`
 
-## Available Tools
+**Authentication:** API key in `Authorization` header
 
-- `translate`
-- `detect_language`
-- `list_languages`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with translate"
+```bash
+curl -H "Authorization: $DEEPL_API_KEY" \
+  "https://api-free.deepl.com/v2/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-translate documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/translate` | Translate text |
+| GET | `/languages` | List languages |
+| GET | `/usage` | Check usage |
 
+## Examples
 
+### 1. Translate text
+
+```bash
+curl -s -H "Authorization: $DEEPL_API_KEY" -X POST -H "Content-Type: application/json" -d '{"text":["Hello"],"target_lang":"DE"}' \
+  "https://api-free.deepl.com/v2/translate"
+```
+
+### 2. List languages
+
+```bash
+curl -s -H "Authorization: $DEEPL_API_KEY" \
+  "https://api-free.deepl.com/v2/languages"
+```
+
+### 3. Check usage
+
+```bash
+curl -s -H "Authorization: $DEEPL_API_KEY" \
+  "https://api-free.deepl.com/v2/usage"
+```
+
+---
 
 ## Author
 

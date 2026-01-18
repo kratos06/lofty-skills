@@ -1,79 +1,85 @@
 ---
-name: cloudflare-mcp
+name: cloudflare
 description: Cloudflare Workers, KV, R2, and D1 management
 ---
 
-# cloudflare-mcp
+# Cloudflare Integration
 
 Cloudflare Workers, KV, R2, and D1 management
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-cloudflare
+export CLOUDFLARE_API_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://dash.cloudflare.com/profile/api-tokens
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "cloudflare": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-cloudflare"],
-      "env": {
-            "CLOUDFLARE_API_TOKEN": "your-api-token",
-            "CLOUDFLARE_ACCOUNT_ID": "your-account-id"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available cloudflare commands"
-```
+https://dash.cloudflare.com/profile/api-tokens
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `CLOUDFLARE_API_TOKEN`: Required - Your api-token
-- `CLOUDFLARE_ACCOUNT_ID`: Required - Your account-id
+**Base URL:** `https://api.cloudflare.com/client/v4`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `list_zones`
-- `list_workers`
-- `deploy_worker`
-- `kv_get`
-- `kv_put`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with cloudflare"
+```bash
+curl -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+  "https://api.cloudflare.com/client/v4/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-cloudflare documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/zones` | List zones/domains |
+| GET | `/zones/{zone_id}/dns_records` | List DNS records |
+| POST | `/zones/{zone_id}/dns_records` | Create DNS record |
+| GET | `/accounts/{account_id}/workers/scripts` | List Workers |
+| PUT | `/accounts/{account_id}/workers/scripts/{script_name}` | Deploy Worker |
 
-## Source
+## Examples
 
-GitHub: https://github.com/cloudflare/mcp-server
+### 1. List zones/domains
+
+```bash
+curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+  "https://api.cloudflare.com/client/v4/zones"
+```
+
+### 2. List DNS records
+
+```bash
+curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+  "https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records"
+```
+
+### 3. Create DNS record
+
+```bash
+curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -X POST -H "Content-Type: application/json" -d '{"type":"A","name":"www","content":"1.2.3.4"}' \
+  "https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records"
+```
+
+### 4. List Workers
+
+```bash
+curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+  "https://api.cloudflare.com/client/v4/accounts/{account_id}/workers/scripts"
+```
+
+### 5. Deploy Worker
+
+```bash
+curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -X PUT -H "Content-Type: application/json" \
+  "https://api.cloudflare.com/client/v4/accounts/{account_id}/workers/scripts/{script_name}"
+```
+
+---
 
 ## Author
 

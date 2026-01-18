@@ -1,5 +1,5 @@
 ---
-name: google-workspace-mcp
+name: google-workspace
 description: Google Workspace integration for Docs, Sheets, Drive, and Calendar
 ---
 
@@ -7,71 +7,17 @@ description: Google Workspace integration for Docs, Sheets, Drive, and Calendar
 
 Google Workspace integration for Docs, Sheets, Drive, and Calendar
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with google-workspace.
 
-```bash
-npm install -g @anthropic/mcp-google-workspace
-```
+## Features
 
-### Step 2: Get API Credentials
+- google
+- workspace
+- productivity
 
-Get your credentials from: https://console.cloud.google.com/apis/credentials
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "google-workspace": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-google-workspace"],
-      "env": {
-            "GOOGLE_CLIENT_ID": "your-client-id",
-            "GOOGLE_CLIENT_SECRET": "your-client-secret",
-            "GOOGLE_REFRESH_TOKEN": "your-refresh-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available google-workspace commands"
-```
-
----
-
-## Environment Variables
-
-- `GOOGLE_CLIENT_ID`: Required - Your client-id
-- `GOOGLE_CLIENT_SECRET`: Required - Your client-secret
-- `GOOGLE_REFRESH_TOKEN`: Required - Your refresh-token
-
-## Available Tools
-
-- `list_emails`
-- `send_email`
-- `list_events`
-- `create_event`
-- `list_files`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with google-workspace"
-```
-
-## Documentation
-
-See @anthropic/mcp-google-workspace documentation for more details.
 
 ## Source
 

@@ -1,81 +1,47 @@
 ---
-name: azure-mcp
+name: azure
 description: Azure comprehensive integration with cloud services (Official)
 ---
 
-# azure-mcp
+# Azure Integration
 
 Azure comprehensive integration with cloud services (Official)
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+## Commands
+
+### Login to Azure
 
 ```bash
-npm install -g @anthropic/mcp-azure
+az login
 ```
 
-### Step 2: Get API Credentials
+### List storage accounts
 
-Get your credentials from: https://portal.azure.com/
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "azure": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-azure"],
-      "env": {
-            "AZURE_SUBSCRIPTION_ID": "your-subscription-id",
-            "AZURE_TENANT_ID": "your-tenant-id",
-            "AZURE_CLIENT_ID": "your-client-id",
-            "AZURE_CLIENT_SECRET": "your-client-secret"
-      }
-    }
-  }
-}
+```bash
+az storage account list
 ```
 
-### Step 4: Verify Installation
+### List VMs
 
-Restart Claude Code and test:
+```bash
+az vm list
 ```
-User: "List available azure commands"
+
+### List Function Apps
+
+```bash
+az functionapp list
+```
+
+### List Web Apps
+
+```bash
+az webapp list
 ```
 
 ---
-
-## Environment Variables
-
-- `AZURE_SUBSCRIPTION_ID`: Required - Your subscription-id
-- `AZURE_TENANT_ID`: Required - Your tenant-id
-- `AZURE_CLIENT_ID`: Required - Your client-id
-- `AZURE_CLIENT_SECRET`: Required - Your client-secret
-
-## Available Tools
-
-- `list_resources`
-- `get_resource`
-- `create_resource`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with azure"
-```
-
-## Documentation
-
-See @anthropic/mcp-azure documentation for more details.
-
-## Source
-
-GitHub: https://github.com/azure/mcp-server
 
 ## Author
 

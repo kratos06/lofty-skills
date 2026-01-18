@@ -1,5 +1,5 @@
 ---
-name: kaggle-mcp
+name: kaggle
 description: Kaggle datasets, models, competitions, and notebooks
 ---
 
@@ -7,67 +7,17 @@ description: Kaggle datasets, models, competitions, and notebooks
 
 Kaggle datasets, models, competitions, and notebooks
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with kaggle.
 
-```bash
-npm install -g @anthropic/mcp-kaggle
-```
+## Features
 
-### Step 2: Get API Credentials
+- kaggle
+- datasets
+- ml
 
-Get your credentials from: https://www.kaggle.com/settings/account
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "kaggle": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-kaggle"],
-      "env": {
-            "KAGGLE_USERNAME": "your-username",
-            "KAGGLE_KEY": "your-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available kaggle commands"
-```
-
----
-
-## Environment Variables
-
-- `KAGGLE_USERNAME`: Required - Your username
-- `KAGGLE_KEY`: Required - Your key
-
-## Available Tools
-
-- `list_datasets`
-- `download_dataset`
-- `list_competitions`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with kaggle"
-```
-
-## Documentation
-
-See @anthropic/mcp-kaggle documentation for more details.
 
 ## Source
 

@@ -1,74 +1,85 @@
 ---
-name: hubspot-mcp
+name: hubspot
 description: HubSpot CRM, marketing, and sales automation
 ---
 
-# hubspot-mcp
+# HubSpot Integration
 
 HubSpot CRM, marketing, and sales automation
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-hubspot
+export HUBSPOT_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://app.hubspot.com/private-apps/
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "hubspot": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-hubspot"],
-      "env": {
-            "HUBSPOT_ACCESS_TOKEN": "pat-your-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available hubspot commands"
-```
+https://app.hubspot.com → Settings → Integrations → Private Apps
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `HUBSPOT_ACCESS_TOKEN`: Required - pat-Your token
+**Base URL:** `https://api.hubapi.com`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `list_contacts`
-- `create_contact`
-- `list_deals`
-- `create_deal`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with hubspot"
+```bash
+curl -H "Authorization: Bearer $HUBSPOT_TOKEN" \
+  "https://api.hubapi.com/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-hubspot documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/crm/v3/objects/contacts` | List contacts |
+| POST | `/crm/v3/objects/contacts` | Create contact |
+| GET | `/crm/v3/objects/deals` | List deals |
+| POST | `/crm/v3/objects/deals` | Create deal |
+| GET | `/crm/v3/objects/companies` | List companies |
 
+## Examples
 
+### 1. List contacts
+
+```bash
+curl -s -H "Authorization: Bearer $HUBSPOT_TOKEN" \
+  "https://api.hubapi.com/crm/v3/objects/contacts"
+```
+
+### 2. Create contact
+
+```bash
+curl -s -H "Authorization: Bearer $HUBSPOT_TOKEN" -X POST -H "Content-Type: application/json" -d '{"properties":{"email":"test@example.com","firstname":"John"}}' \
+  "https://api.hubapi.com/crm/v3/objects/contacts"
+```
+
+### 3. List deals
+
+```bash
+curl -s -H "Authorization: Bearer $HUBSPOT_TOKEN" \
+  "https://api.hubapi.com/crm/v3/objects/deals"
+```
+
+### 4. Create deal
+
+```bash
+curl -s -H "Authorization: Bearer $HUBSPOT_TOKEN" -X POST -H "Content-Type: application/json" -d '{"properties":{"dealname":"New Deal","amount":"1000"}}' \
+  "https://api.hubapi.com/crm/v3/objects/deals"
+```
+
+### 5. List companies
+
+```bash
+curl -s -H "Authorization: Bearer $HUBSPOT_TOKEN" \
+  "https://api.hubapi.com/crm/v3/objects/companies"
+```
+
+---
 
 ## Author
 

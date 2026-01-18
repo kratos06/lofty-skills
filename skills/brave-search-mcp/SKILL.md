@@ -1,75 +1,69 @@
 ---
-name: brave-search-mcp
+name: brave-search
 description: Brave Search API integration
 ---
 
-# brave-search-mcp
+# Brave Search Integration
 
 Brave Search API integration
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-brave-search
+export BRAVE_API_KEY="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://api.search.brave.com/app/keys
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "brave-search": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-brave-search"],
-      "env": {
-            "BRAVE_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available brave-search commands"
-```
+https://api.search.brave.com/app/keys
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `BRAVE_API_KEY`: Required - Your api-key
+**Base URL:** `https://api.search.brave.com/res/v1`
 
-## Available Tools
+**Authentication:** API key in `X-Subscription-Token` header
 
-- `web_search`
-- `news_search`
-- `image_search`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with brave-search"
+```bash
+curl -H "X-Subscription-Token: $BRAVE_API_KEY" \
+  "https://api.search.brave.com/res/v1/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-brave-search documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/web/search` | Web search |
+| GET | `/news/search` | News search |
+| GET | `/images/search` | Image search |
 
-## Source
+## Examples
 
-GitHub: https://github.com/anthropics/brave-search-mcp
+### 1. Web search
+
+```bash
+curl -s -H "X-Subscription-Token: $BRAVE_API_KEY" \
+  "https://api.search.brave.com/res/v1/web/search?q=search+term"
+```
+
+### 2. News search
+
+```bash
+curl -s -H "X-Subscription-Token: $BRAVE_API_KEY" \
+  "https://api.search.brave.com/res/v1/news/search?q=search+term"
+```
+
+### 3. Image search
+
+```bash
+curl -s -H "X-Subscription-Token: $BRAVE_API_KEY" \
+  "https://api.search.brave.com/res/v1/images/search?q=search+term"
+```
+
+---
 
 ## Author
 

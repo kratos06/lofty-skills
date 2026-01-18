@@ -1,71 +1,46 @@
 ---
-name: wikipedia-mcp
+name: wikipedia
 description: Wikipedia knowledge base access
 ---
 
-# wikipedia-mcp
+# Wikipedia Integration
 
 Wikipedia knowledge base access
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
-
-```bash
-npm install -g @anthropic/mcp-wikipedia
-```
-
-### Step 2: Get API Credentials
-
-Configure the required credentials below.
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "wikipedia": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-wikipedia"],
-      "env": {}
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available wikipedia commands"
-```
+No authentication required.
 
 ---
 
-## Environment Variables
+## API Reference
 
+**Base URL:** `https://en.wikipedia.org/api/rest_v1`
 
+## Endpoints
 
-## Available Tools
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/page/summary/{title}` | Get page summary |
+| GET | `/page/html/{title}` | Get page HTML |
 
-- `search`
-- `get_page`
-- `get_summary`
+## Examples
 
-## Quick Start Examples
+### 1. Get page summary
 
-### Example 1
+```bash
+curl -s \
+  "https://en.wikipedia.org/api/rest_v1/page/summary/{title}"
 ```
-User: "Help me with wikipedia"
+
+### 2. Get page HTML
+
+```bash
+curl -s \
+  "https://en.wikipedia.org/api/rest_v1/page/html/{title}"
 ```
 
-## Documentation
-
-See @anthropic/mcp-wikipedia documentation for more details.
-
-
+---
 
 ## Author
 

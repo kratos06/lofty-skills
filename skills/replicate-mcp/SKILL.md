@@ -1,73 +1,69 @@
 ---
-name: replicate-mcp
+name: replicate
 description: Replicate AI model hosting
 ---
 
-# replicate-mcp
+# Replicate Integration
 
 Replicate AI model hosting
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-replicate
+export REPLICATE_API_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://replicate.com/account/api-tokens
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "replicate": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-replicate"],
-      "env": {
-            "REPLICATE_API_TOKEN": "r8_your-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available replicate commands"
-```
+https://replicate.com/account/api-tokens
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `REPLICATE_API_TOKEN`: Required - r8_Your token
+**Base URL:** `https://api.replicate.com/v1`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `run`
-- `list_models`
-- `get_prediction`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with replicate"
+```bash
+curl -H "Authorization: Bearer $REPLICATE_API_TOKEN" \
+  "https://api.replicate.com/v1/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-replicate documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/predictions` | Run model |
+| GET | `/predictions/{id}` | Get prediction |
+| GET | `/models` | List models |
 
+## Examples
 
+### 1. Run model
+
+```bash
+curl -s -H "Authorization: Bearer $REPLICATE_API_TOKEN" -X POST -H "Content-Type: application/json" -d '{"version":"model_version_id","input":{"prompt":"Hello"}}' \
+  "https://api.replicate.com/v1/predictions"
+```
+
+### 2. Get prediction
+
+```bash
+curl -s -H "Authorization: Bearer $REPLICATE_API_TOKEN" \
+  "https://api.replicate.com/v1/predictions/{id}"
+```
+
+### 3. List models
+
+```bash
+curl -s -H "Authorization: Bearer $REPLICATE_API_TOKEN" \
+  "https://api.replicate.com/v1/models"
+```
+
+---
 
 ## Author
 

@@ -1,76 +1,77 @@
 ---
-name: openai-mcp
+name: openai
 description: OpenAI API integration for GPT models and embeddings
 ---
 
-# openai-mcp
+# OpenAI Integration
 
 OpenAI API integration for GPT models and embeddings
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-openai
+export OPENAI_API_KEY="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://platform.openai.com/api-keys
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "openai": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-openai"],
-      "env": {
-            "OPENAI_API_KEY": "sk-your-api-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available openai commands"
-```
+https://platform.openai.com/api-keys
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `OPENAI_API_KEY`: Required - sk-Your api-key
+**Base URL:** `https://api.openai.com/v1`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `chat`
-- `complete`
-- `embed`
-- `create_image`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with openai"
+```bash
+curl -H "Authorization: Bearer $OPENAI_API_KEY" \
+  "https://api.openai.com/v1/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-openai documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/chat/completions` | Chat completion |
+| POST | `/embeddings` | Create embeddings |
+| POST | `/images/generations` | Generate image |
+| GET | `/models` | List models |
 
-## Source
+## Examples
 
-GitHub: https://github.com/openai/mcp-server
+### 1. Chat completion
+
+```bash
+curl -s -H "Authorization: Bearer $OPENAI_API_KEY" -X POST -H "Content-Type: application/json" -d '{"model":"gpt-4","messages":[{"role":"user","content":"Hello"}]}' \
+  "https://api.openai.com/v1/chat/completions"
+```
+
+### 2. Create embeddings
+
+```bash
+curl -s -H "Authorization: Bearer $OPENAI_API_KEY" -X POST -H "Content-Type: application/json" -d '{"model":"text-embedding-3-small","input":"text to embed"}' \
+  "https://api.openai.com/v1/embeddings"
+```
+
+### 3. Generate image
+
+```bash
+curl -s -H "Authorization: Bearer $OPENAI_API_KEY" -X POST -H "Content-Type: application/json" -d '{"model":"dall-e-3","prompt":"a cat","n":1}' \
+  "https://api.openai.com/v1/images/generations"
+```
+
+### 4. List models
+
+```bash
+curl -s -H "Authorization: Bearer $OPENAI_API_KEY" \
+  "https://api.openai.com/v1/models"
+```
+
+---
 
 ## Author
 

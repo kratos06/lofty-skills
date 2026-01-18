@@ -1,5 +1,5 @@
 ---
-name: planetscale-mcp
+name: planetscale
 description: PlanetScale serverless MySQL
 ---
 
@@ -7,69 +7,17 @@ description: PlanetScale serverless MySQL
 
 PlanetScale serverless MySQL
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with planetscale.
 
-```bash
-npm install -g @anthropic/mcp-planetscale
-```
+## Features
 
-### Step 2: Get API Credentials
+- planetscale
+- mysql
+- serverless
 
-Get your credentials from: https://app.planetscale.com/
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "planetscale": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-planetscale"],
-      "env": {
-            "PLANETSCALE_HOST": "your-host.psdb.cloud",
-            "PLANETSCALE_USERNAME": "your-username",
-            "PLANETSCALE_PASSWORD": "your-password"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available planetscale commands"
-```
-
----
-
-## Environment Variables
-
-- `PLANETSCALE_HOST`: Required - Your host.psdb.cloud
-- `PLANETSCALE_USERNAME`: Required - Your username
-- `PLANETSCALE_PASSWORD`: Required - Your password
-
-## Available Tools
-
-- `query`
-- `list_tables`
-- `describe_table`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with planetscale"
-```
-
-## Documentation
-
-See @anthropic/mcp-planetscale documentation for more details.
 
 
 

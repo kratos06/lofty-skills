@@ -1,76 +1,85 @@
 ---
-name: asana-mcp
+name: asana
 description: Asana task management with project tracking and team collaboration
 ---
 
-# asana-mcp
+# Asana Integration
 
 Asana task management with project tracking and team collaboration
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-asana
+export ASANA_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://app.asana.com/0/developer-console
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "asana": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-asana"],
-      "env": {
-            "ASANA_ACCESS_TOKEN": "your-access-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available asana commands"
-```
+https://app.asana.com/0/developer-console → Personal access tokens
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `ASANA_ACCESS_TOKEN`: Required - Your access-token
+**Base URL:** `https://app.asana.com/api/1.0`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `list_workspaces`
-- `list_projects`
-- `create_task`
-- `get_task`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with asana"
+```bash
+curl -H "Authorization: Bearer $ASANA_TOKEN" \
+  "https://app.asana.com/api/1.0/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-asana documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/workspaces` | List workspaces |
+| GET | `/projects` | List projects |
+| GET | `/tasks` | List tasks |
+| POST | `/tasks` | Create task |
+| PUT | `/tasks/{task_gid}` | Update task |
 
-## Source
+## Examples
 
-GitHub: https://github.com/asana/mcp-server
+### 1. List workspaces
+
+```bash
+curl -s -H "Authorization: Bearer $ASANA_TOKEN" \
+  "https://app.asana.com/api/1.0/workspaces"
+```
+
+### 2. List projects
+
+```bash
+curl -s -H "Authorization: Bearer $ASANA_TOKEN" \
+  "https://app.asana.com/api/1.0/projects?workspace={workspace_gid}"
+```
+
+### 3. List tasks
+
+```bash
+curl -s -H "Authorization: Bearer $ASANA_TOKEN" \
+  "https://app.asana.com/api/1.0/tasks?project={project_gid}"
+```
+
+### 4. Create task
+
+```bash
+curl -s -H "Authorization: Bearer $ASANA_TOKEN" -X POST -H "Content-Type: application/json" -d '{"data":{"name":"Task","projects":["xxx"]}}' \
+  "https://app.asana.com/api/1.0/tasks"
+```
+
+### 5. Update task
+
+```bash
+curl -s -H "Authorization: Bearer $ASANA_TOKEN" -X PUT -H "Content-Type: application/json" -d '{"data":{"completed":true}}' \
+  "https://app.asana.com/api/1.0/tasks/{task_gid}"
+```
+
+---
 
 ## Author
 

@@ -1,78 +1,77 @@
 ---
-name: sentry-mcp
+name: sentry
 description: Sentry error tracking and performance monitoring
 ---
 
-# sentry-mcp
+# Sentry Integration
 
 Sentry error tracking and performance monitoring
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-sentry
+export SENTRY_AUTH_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://sentry.io/settings/account/api/auth-tokens/
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "sentry": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-sentry"],
-      "env": {
-            "SENTRY_AUTH_TOKEN": "your-token",
-            "SENTRY_ORG": "your-org"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available sentry commands"
-```
+https://sentry.io/settings/account/api/auth-tokens/
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `SENTRY_AUTH_TOKEN`: Required - Your token
-- `SENTRY_ORG`: Required - Your org
+**Base URL:** `https://sentry.io/api/0`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `list_issues`
-- `get_issue`
-- `resolve_issue`
-- `list_events`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with sentry"
+```bash
+curl -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" \
+  "https://sentry.io/api/0/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-sentry documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/organizations/{org}/issues/` | List issues |
+| GET | `/issues/{issue_id}/` | Get issue |
+| PUT | `/issues/{issue_id}/` | Update issue |
+| GET | `/projects/{org}/{project}/events/` | List events |
 
-## Source
+## Examples
 
-GitHub: https://github.com/sentry/mcp-server
+### 1. List issues
+
+```bash
+curl -s -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" \
+  "https://sentry.io/api/0/organizations/{org}/issues/"
+```
+
+### 2. Get issue
+
+```bash
+curl -s -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" \
+  "https://sentry.io/api/0/issues/{issue_id}/"
+```
+
+### 3. Update issue
+
+```bash
+curl -s -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" -X PUT -H "Content-Type: application/json" -d '{"status":"resolved"}' \
+  "https://sentry.io/api/0/issues/{issue_id}/"
+```
+
+### 4. List events
+
+```bash
+curl -s -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" \
+  "https://sentry.io/api/0/projects/{org}/{project}/events/"
+```
+
+---
 
 ## Author
 

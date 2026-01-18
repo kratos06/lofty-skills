@@ -1,75 +1,69 @@
 ---
-name: firecrawl-mcp
+name: firecrawl
 description: Firecrawl web scraping and search capabilities (Official)
 ---
 
-# firecrawl-mcp
+# Firecrawl Integration
 
 Firecrawl web scraping and search capabilities (Official)
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-firecrawl
+export FIRECRAWL_API_KEY="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://firecrawl.dev/app/api-keys
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "firecrawl": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-firecrawl"],
-      "env": {
-            "FIRECRAWL_API_KEY": "fc-your-api-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available firecrawl commands"
-```
+https://firecrawl.dev/app/api-keys
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `FIRECRAWL_API_KEY`: Required - fc-Your api-key
+**Base URL:** `https://api.firecrawl.dev/v0`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `scrape`
-- `crawl`
-- `map`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with firecrawl"
+```bash
+curl -H "Authorization: Bearer $FIRECRAWL_API_KEY" \
+  "https://api.firecrawl.dev/v0/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-firecrawl documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/scrape` | Scrape URL |
+| POST | `/crawl` | Crawl website |
+| GET | `/crawl/{id}` | Get crawl status |
 
-## Source
+## Examples
 
-GitHub: https://github.com/firecrawl/mcp-server
+### 1. Scrape URL
+
+```bash
+curl -s -H "Authorization: Bearer $FIRECRAWL_API_KEY" -X POST -H "Content-Type: application/json" -d '{"url":"https://example.com"}' \
+  "https://api.firecrawl.dev/v0/scrape"
+```
+
+### 2. Crawl website
+
+```bash
+curl -s -H "Authorization: Bearer $FIRECRAWL_API_KEY" -X POST -H "Content-Type: application/json" -d '{"url":"https://example.com","limit":10}' \
+  "https://api.firecrawl.dev/v0/crawl"
+```
+
+### 3. Get crawl status
+
+```bash
+curl -s -H "Authorization: Bearer $FIRECRAWL_API_KEY" \
+  "https://api.firecrawl.dev/v0/crawl/{id}"
+```
+
+---
 
 ## Author
 

@@ -1,77 +1,47 @@
 ---
-name: mongodb-mcp
+name: mongodb
 description: MongoDB database with Atlas, Community, and vector search support (Official)
 ---
 
-# mongodb-mcp
+# MongoDB Integration
 
 MongoDB database with Atlas, Community, and vector search support (Official)
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+## Database Commands
+
+### Connection String
 
 ```bash
-npm install -g @anthropic/mcp-mongodb
+export MONGODB_URI="mongodb://localhost:27017/database"
 ```
 
-### Step 2: Get API Credentials
+### Query data
 
-Configure the required credentials below.
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "mongodb": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-mongodb"],
-      "env": {
-            "MONGODB_URI": "mongodb://localhost:27017/database"
-      }
-    }
-  }
-}
+```bash
+mongosh "$MONGODB_URI" --eval "db.users.find().limit(10)"
 ```
 
-### Step 4: Verify Installation
+### List collections
 
-Restart Claude Code and test:
+```bash
+mongosh "$MONGODB_URI" --eval "db.getCollectionNames()"
 ```
-User: "List available mongodb commands"
+
+### Insert document
+
+```bash
+mongosh "$MONGODB_URI" --eval "db.users.insertOne({name: 'John', email: 'john@example.com'})"
+```
+
+### Update document
+
+```bash
+mongosh "$MONGODB_URI" --eval "db.users.updateOne({name: 'John'}, {\$set: {status: 'active'}})"
 ```
 
 ---
-
-## Environment Variables
-
-- `MONGODB_URI`: mongodb://localhost:27017/database
-
-## Available Tools
-
-- `find`
-- `insert`
-- `update`
-- `delete`
-- `aggregate`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with mongodb"
-```
-
-## Documentation
-
-See @anthropic/mcp-mongodb documentation for more details.
-
-## Source
-
-GitHub: https://github.com/mongodb-js/mongodb-mcp-server
 
 ## Author
 

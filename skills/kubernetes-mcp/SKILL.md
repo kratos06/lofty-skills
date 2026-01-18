@@ -1,5 +1,5 @@
 ---
-name: kubernetes-mcp
+name: kubernetes
 description: Kubernetes cluster operations and resource management
 ---
 
@@ -7,67 +7,18 @@ description: Kubernetes cluster operations and resource management
 
 Kubernetes cluster operations and resource management
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with kubernetes.
 
-```bash
-npm install -g @anthropic/mcp-kubernetes
-```
+## Features
 
-### Step 2: Get API Credentials
+- kubernetes
+- k8s
+- containers
+- orchestration
 
-Configure the required credentials below.
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "kubernetes": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-kubernetes"],
-      "env": {
-            "KUBECONFIG": "~/.kube/config"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available kubernetes commands"
-```
-
----
-
-## Environment Variables
-
-- `KUBECONFIG`: ~/.kube/config
-
-## Available Tools
-
-- `get_pods`
-- `get_deployments`
-- `apply`
-- `delete`
-- `logs`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with kubernetes"
-```
-
-## Documentation
-
-See @anthropic/mcp-kubernetes documentation for more details.
 
 ## Source
 

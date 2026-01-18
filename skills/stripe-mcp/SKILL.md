@@ -1,76 +1,93 @@
 ---
-name: stripe-mcp
+name: stripe
 description: Stripe payment processing, subscriptions, and invoicing
 ---
 
-# stripe-mcp
+# Stripe Integration
 
 Stripe payment processing, subscriptions, and invoicing
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-stripe
+export STRIPE_SECRET_KEY="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://dashboard.stripe.com/apikeys
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "stripe": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-stripe"],
-      "env": {
-            "STRIPE_SECRET_KEY": "sk_your-secret-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available stripe commands"
-```
+https://dashboard.stripe.com/apikeys
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `STRIPE_SECRET_KEY`: Required - sk_Your secret-key
+**Base URL:** `https://api.stripe.com/v1`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `list_customers`
-- `create_customer`
-- `list_payments`
-- `create_payment`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with stripe"
+```bash
+curl -H "Authorization: Bearer $STRIPE_SECRET_KEY" \
+  "https://api.stripe.com/v1/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-stripe documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/customers` | List customers |
+| POST | `/customers` | Create customer |
+| GET | `/charges` | List charges |
+| POST | `/charges` | Create charge |
+| GET | `/subscriptions` | List subscriptions |
+| POST | `/payment_intents` | Create payment intent |
 
-## Source
+## Examples
 
-GitHub: https://github.com/stripe/mcp-server
+### 1. List customers
+
+```bash
+curl -s -H "Authorization: Bearer $STRIPE_SECRET_KEY" \
+  "https://api.stripe.com/v1/customers"
+```
+
+### 2. Create customer
+
+```bash
+curl -s -H "Authorization: Bearer $STRIPE_SECRET_KEY" -X POST -H "Content-Type: application/json" -d '{"email":"customer@example.com","name":"John Doe"}' \
+  "https://api.stripe.com/v1/customers"
+```
+
+### 3. List charges
+
+```bash
+curl -s -H "Authorization: Bearer $STRIPE_SECRET_KEY" \
+  "https://api.stripe.com/v1/charges"
+```
+
+### 4. Create charge
+
+```bash
+curl -s -H "Authorization: Bearer $STRIPE_SECRET_KEY" -X POST -H "Content-Type: application/json" -d '{"amount":2000,"currency":"usd","source":"tok_visa"}' \
+  "https://api.stripe.com/v1/charges"
+```
+
+### 5. List subscriptions
+
+```bash
+curl -s -H "Authorization: Bearer $STRIPE_SECRET_KEY" \
+  "https://api.stripe.com/v1/subscriptions"
+```
+
+### 6. Create payment intent
+
+```bash
+curl -s -H "Authorization: Bearer $STRIPE_SECRET_KEY" -X POST -H "Content-Type: application/json" -d '{"amount":2000,"currency":"usd"}' \
+  "https://api.stripe.com/v1/payment_intents"
+```
+
+---
 
 ## Author
 

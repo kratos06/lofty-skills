@@ -1,74 +1,43 @@
 ---
-name: obsidian-mcp
+name: obsidian
 description: Obsidian notes and knowledge base
 ---
 
-# obsidian-mcp
+# Obsidian Integration
 
 Obsidian notes and knowledge base
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+## Commands
+
+### Read note
 
 ```bash
-npm install -g @anthropic/mcp-obsidian
+cat "$OBSIDIAN_VAULT_PATH/note.md"
 ```
 
-### Step 2: Get API Credentials
+### Create note
 
-Configure the required credentials below.
+```bash
+echo "# Title
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "obsidian": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-obsidian"],
-      "env": {
-            "OBSIDIAN_VAULT_PATH": "/path/to/vault"
-      }
-    }
-  }
-}
+Content" > "$OBSIDIAN_VAULT_PATH/new-note.md"
 ```
 
-### Step 4: Verify Installation
+### List notes
 
-Restart Claude Code and test:
+```bash
+find "$OBSIDIAN_VAULT_PATH" -name "*.md" | head -20
 ```
-User: "List available obsidian commands"
+
+### Search notes
+
+```bash
+grep -r "search term" "$OBSIDIAN_VAULT_PATH"
 ```
 
 ---
-
-## Environment Variables
-
-- `OBSIDIAN_VAULT_PATH`: /path/to/vault
-
-## Available Tools
-
-- `read_note`
-- `write_note`
-- `search_notes`
-- `list_notes`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with obsidian"
-```
-
-## Documentation
-
-See @anthropic/mcp-obsidian documentation for more details.
-
-
 
 ## Author
 

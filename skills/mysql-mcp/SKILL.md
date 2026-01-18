@@ -1,80 +1,44 @@
 ---
-name: mysql-mcp
+name: mysql
 description: MySQL database operations
 ---
 
-# mysql-mcp
+# MySQL Integration
 
 MySQL database operations
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variables
 
 ```bash
-npm install -g @anthropic/mcp-mysql
+export MYSQL_HOST="your-value"
+export MYSQL_USER="your-value"
+export MYSQL_PASSWORD="your-value"
+export MYSQL_DATABASE="your-value"
 ```
 
-### Step 2: Get API Credentials
+## Database Commands
 
-Configure the required credentials below.
+### Query data
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "mysql": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-mysql"],
-      "env": {
-            "MYSQL_HOST": "localhost",
-            "MYSQL_USER": "root",
-            "MYSQL_PASSWORD": "password",
-            "MYSQL_DATABASE": "database"
-      }
-    }
-  }
-}
+```bash
+mysql -h "$MYSQL_HOST" -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" -e "SELECT * FROM users LIMIT 10;"
 ```
 
-### Step 4: Verify Installation
+### List tables
 
-Restart Claude Code and test:
+```bash
+mysql -h "$MYSQL_HOST" -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" -e "SHOW TABLES;"
 ```
-User: "List available mysql commands"
+
+### Describe table
+
+```bash
+mysql -h "$MYSQL_HOST" -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" -e "DESCRIBE users;"
 ```
 
 ---
-
-## Environment Variables
-
-- `MYSQL_HOST`: localhost
-- `MYSQL_USER`: root
-- `MYSQL_PASSWORD`: password
-- `MYSQL_DATABASE`: database
-
-## Available Tools
-
-- `query`
-- `list_tables`
-- `describe_table`
-- `execute`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with mysql"
-```
-
-## Documentation
-
-See @anthropic/mcp-mysql documentation for more details.
-
-
 
 ## Author
 

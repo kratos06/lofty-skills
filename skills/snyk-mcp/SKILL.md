@@ -1,5 +1,5 @@
 ---
-name: snyk-mcp
+name: snyk
 description: Snyk security vulnerability scanning
 ---
 
@@ -7,66 +7,17 @@ description: Snyk security vulnerability scanning
 
 Snyk security vulnerability scanning
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with snyk.
 
-```bash
-npm install -g @anthropic/mcp-snyk
-```
+## Features
 
-### Step 2: Get API Credentials
+- snyk
+- security
+- vulnerabilities
 
-Get your credentials from: https://app.snyk.io/account
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "snyk": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-snyk"],
-      "env": {
-            "SNYK_TOKEN": "your-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available snyk commands"
-```
-
----
-
-## Environment Variables
-
-- `SNYK_TOKEN`: Required - Your token
-
-## Available Tools
-
-- `test`
-- `monitor`
-- `list_issues`
-- `get_issue`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with snyk"
-```
-
-## Documentation
-
-See @anthropic/mcp-snyk documentation for more details.
 
 
 

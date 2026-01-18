@@ -1,76 +1,47 @@
 ---
-name: postgres-mcp
+name: postgres
 description: PostgreSQL database with schema inspection and read-only queries (Official Anthropic)
 ---
 
-# postgres-mcp
+# PostgreSQL Integration
 
 PostgreSQL database with schema inspection and read-only queries (Official Anthropic)
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+## Database Commands
+
+### Connection String
 
 ```bash
-npm install -g @modelcontextprotocol/server-postgres
+export DATABASE_URL="postgresql://user:password@localhost:5432/database"
 ```
 
-### Step 2: Get API Credentials
+### Query data
 
-Configure the required credentials below.
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "postgres": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-postgres"],
-      "env": {
-            "POSTGRES_CONNECTION_STRING": "postgresql://user:password@localhost:5432/database"
-      }
-    }
-  }
-}
+```bash
+psql "$DATABASE_URL" -c "SELECT * FROM users LIMIT 10;"
 ```
 
-### Step 4: Verify Installation
+### List tables
 
-Restart Claude Code and test:
+```bash
+psql "$DATABASE_URL" -c "\dt"
 ```
-User: "List available postgres commands"
+
+### Describe table
+
+```bash
+psql "$DATABASE_URL" -c "\d users"
+```
+
+### Insert data
+
+```bash
+psql "$DATABASE_URL" -c "INSERT INTO users (name, email) VALUES ('John', 'john@example.com');"
 ```
 
 ---
-
-## Environment Variables
-
-- `POSTGRES_CONNECTION_STRING`: postgresql://user:password@localhost:5432/database
-
-## Available Tools
-
-- `query`
-- `list_tables`
-- `describe_table`
-- `execute`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with postgres"
-```
-
-## Documentation
-
-See @modelcontextprotocol/server-postgres documentation for more details.
-
-## Source
-
-GitHub: https://github.com/modelcontextprotocol/servers/tree/main/src/postgres
 
 ## Author
 

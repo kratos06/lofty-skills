@@ -1,77 +1,47 @@
 ---
-name: gcp-mcp
+name: gcp
 description: Google Cloud Platform integration for compute, storage, and AI services
 ---
 
-# gcp-mcp
+# Google Cloud Integration
 
 Google Cloud Platform integration for compute, storage, and AI services
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+## Commands
+
+### List Cloud Storage buckets
 
 ```bash
-npm install -g @anthropic/mcp-gcp
+gcloud storage ls
 ```
 
-### Step 2: Get API Credentials
+### List VM instances
 
-Get your credentials from: https://console.cloud.google.com/iam-admin/serviceaccounts
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "gcp": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-gcp"],
-      "env": {
-            "GOOGLE_APPLICATION_CREDENTIALS": "/path/to/service-account.json",
-            "GCP_PROJECT_ID": "your-project-id"
-      }
-    }
-  }
-}
+```bash
+gcloud compute instances list
 ```
 
-### Step 4: Verify Installation
+### List Cloud Functions
 
-Restart Claude Code and test:
+```bash
+gcloud functions list
 ```
-User: "List available gcp commands"
+
+### List Cloud Run services
+
+```bash
+gcloud run services list
+```
+
+### Query BigQuery
+
+```bash
+bq query "SELECT * FROM dataset.table LIMIT 10"
 ```
 
 ---
-
-## Environment Variables
-
-- `GOOGLE_APPLICATION_CREDENTIALS`: /path/to/service-account.json
-- `GCP_PROJECT_ID`: Required - Your project-id
-
-## Available Tools
-
-- `list_buckets`
-- `list_instances`
-- `run_query`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with gcp"
-```
-
-## Documentation
-
-See @anthropic/mcp-gcp documentation for more details.
-
-## Source
-
-GitHub: https://github.com/google/gcp-mcp
 
 ## Author
 

@@ -1,76 +1,41 @@
 ---
-name: sqlite-mcp
+name: sqlite
 description: SQLite local database operations
 ---
 
-# sqlite-mcp
+# SQLite Integration
 
 SQLite local database operations
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+## Database Commands
+
+### Query data
 
 ```bash
-npm install -g @modelcontextprotocol/server-sqlite
+sqlite3 "$SQLITE_PATH" "SELECT * FROM users LIMIT 10;"
 ```
 
-### Step 2: Get API Credentials
+### List tables
 
-Configure the required credentials below.
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "sqlite": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sqlite"],
-      "env": {
-            "SQLITE_DB_PATH": "/path/to/database.db"
-      }
-    }
-  }
-}
+```bash
+sqlite3 "$SQLITE_PATH" ".tables"
 ```
 
-### Step 4: Verify Installation
+### Show schema
 
-Restart Claude Code and test:
+```bash
+sqlite3 "$SQLITE_PATH" ".schema users"
 ```
-User: "List available sqlite commands"
+
+### Insert data
+
+```bash
+sqlite3 "$SQLITE_PATH" "INSERT INTO users (name) VALUES ('John');"
 ```
 
 ---
-
-## Environment Variables
-
-- `SQLITE_DB_PATH`: /path/to/database.db
-
-## Available Tools
-
-- `query`
-- `list_tables`
-- `describe_table`
-- `execute`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with sqlite"
-```
-
-## Documentation
-
-See @modelcontextprotocol/server-sqlite documentation for more details.
-
-## Source
-
-GitHub: https://github.com/modelcontextprotocol/servers/tree/main/src/sqlite
 
 ## Author
 

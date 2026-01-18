@@ -1,5 +1,5 @@
 ---
-name: microsoft365-mcp
+name: microsoft365
 description: Microsoft 365 unified integration for Office, Teams, and SharePoint
 ---
 
@@ -7,71 +7,17 @@ description: Microsoft 365 unified integration for Office, Teams, and SharePoint
 
 Microsoft 365 unified integration for Office, Teams, and SharePoint
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with microsoft365.
 
-```bash
-npm install -g @anthropic/mcp-microsoft365
-```
+## Features
 
-### Step 2: Get API Credentials
+- microsoft
+- office
+- 365
 
-Get your credentials from: https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "microsoft365": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-microsoft365"],
-      "env": {
-            "MICROSOFT_CLIENT_ID": "your-client-id",
-            "MICROSOFT_CLIENT_SECRET": "your-client-secret",
-            "MICROSOFT_TENANT_ID": "your-tenant-id"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available microsoft365 commands"
-```
-
----
-
-## Environment Variables
-
-- `MICROSOFT_CLIENT_ID`: Required - Your client-id
-- `MICROSOFT_CLIENT_SECRET`: Required - Your client-secret
-- `MICROSOFT_TENANT_ID`: Required - Your tenant-id
-
-## Available Tools
-
-- `list_emails`
-- `send_email`
-- `list_events`
-- `create_event`
-- `list_files`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with microsoft365"
-```
-
-## Documentation
-
-See @anthropic/mcp-microsoft365 documentation for more details.
 
 ## Source
 

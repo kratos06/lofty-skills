@@ -1,5 +1,5 @@
 ---
-name: e2b-mcp
+name: e2b
 description: E2B code sandbox execution
 ---
 
@@ -7,66 +7,17 @@ description: E2B code sandbox execution
 
 E2B code sandbox execution
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with e2b.
 
-```bash
-npm install -g @anthropic/mcp-e2b
-```
+## Features
 
-### Step 2: Get API Credentials
+- e2b
+- sandbox
+- code
 
-Get your credentials from: https://e2b.dev/dashboard/keys
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "e2b": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-e2b"],
-      "env": {
-            "E2B_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available e2b commands"
-```
-
----
-
-## Environment Variables
-
-- `E2B_API_KEY`: Required - Your api-key
-
-## Available Tools
-
-- `create_sandbox`
-- `run_code`
-- `run_command`
-- `upload_file`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with e2b"
-```
-
-## Documentation
-
-See @anthropic/mcp-e2b documentation for more details.
 
 
 

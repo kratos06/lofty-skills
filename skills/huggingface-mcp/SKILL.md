@@ -1,75 +1,61 @@
 ---
-name: huggingface-mcp
+name: huggingface
 description: Hugging Face models, datasets, and inference API
 ---
 
-# huggingface-mcp
+# Hugging Face Integration
 
 Hugging Face models, datasets, and inference API
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-huggingface
+export HUGGINGFACE_API_KEY="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://huggingface.co/settings/tokens
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "huggingface": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-huggingface"],
-      "env": {
-            "HUGGINGFACE_API_KEY": "hf_your-api-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available huggingface commands"
-```
+https://huggingface.co/settings/tokens
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `HUGGINGFACE_API_KEY`: Required - hf_Your api-key
+**Base URL:** `https://api-inference.huggingface.co/models`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `inference`
-- `list_models`
-- `get_model`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with huggingface"
+```bash
+curl -H "Authorization: Bearer $HUGGINGFACE_API_KEY" \
+  "https://api-inference.huggingface.co/models/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-huggingface documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/{model_id}` | Run inference |
+| POST | `/sentence-transformers/all-MiniLM-L6-v2` | Create embeddings |
 
-## Source
+## Examples
 
-GitHub: https://github.com/huggingface/mcp-server
+### 1. Run inference
+
+```bash
+curl -s -H "Authorization: Bearer $HUGGINGFACE_API_KEY" -X POST -H "Content-Type: application/json" -d '{"inputs":"Hello, how are you?"}' \
+  "https://api-inference.huggingface.co/models/{model_id}"
+```
+
+### 2. Create embeddings
+
+```bash
+curl -s -H "Authorization: Bearer $HUGGINGFACE_API_KEY" -X POST -H "Content-Type: application/json" -d '{"inputs":"text to embed"}' \
+  "https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2"
+```
+
+---
 
 ## Author
 

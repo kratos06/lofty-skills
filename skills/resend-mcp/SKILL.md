@@ -1,73 +1,69 @@
 ---
-name: resend-mcp
+name: resend
 description: Resend developer email API
 ---
 
-# resend-mcp
+# Resend Integration
 
 Resend developer email API
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-resend
+export RESEND_API_KEY="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://resend.com/api-keys
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "resend": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-resend"],
-      "env": {
-            "RESEND_API_KEY": "re_your-api-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available resend commands"
-```
+https://resend.com/api-keys
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `RESEND_API_KEY`: Required - re_Your api-key
+**Base URL:** `https://api.resend.com`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `send_email`
-- `list_emails`
-- `get_email`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with resend"
+```bash
+curl -H "Authorization: Bearer $RESEND_API_KEY" \
+  "https://api.resend.com/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-resend documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/emails` | Send email |
+| GET | `/emails/{email_id}` | Get email |
+| GET | `/domains` | List domains |
 
+## Examples
 
+### 1. Send email
+
+```bash
+curl -s -H "Authorization: Bearer $RESEND_API_KEY" -X POST -H "Content-Type: application/json" -d '{"from":"you@example.com","to":["user@example.com"],"subject":"Hello","html":"<p>Body</p>"}' \
+  "https://api.resend.com/emails"
+```
+
+### 2. Get email
+
+```bash
+curl -s -H "Authorization: Bearer $RESEND_API_KEY" \
+  "https://api.resend.com/emails/{email_id}"
+```
+
+### 3. List domains
+
+```bash
+curl -s -H "Authorization: Bearer $RESEND_API_KEY" \
+  "https://api.resend.com/domains"
+```
+
+---
 
 ## Author
 

@@ -1,78 +1,53 @@
 ---
-name: redis-mcp
+name: redis
 description: Redis key-value store with vector search capabilities (Official)
 ---
 
-# redis-mcp
+# Redis Integration
 
 Redis key-value store with vector search capabilities (Official)
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+## Database Commands
+
+### Connection String
 
 ```bash
-npm install -g @anthropic/mcp-redis
+export REDIS_URL="redis://localhost:6379"
 ```
 
-### Step 2: Get API Credentials
+### Get value
 
-Configure the required credentials below.
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "redis": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-redis"],
-      "env": {
-            "REDIS_URL": "redis://localhost:6379"
-      }
-    }
-  }
-}
+```bash
+redis-cli -u "$REDIS_URL" GET key
 ```
 
-### Step 4: Verify Installation
+### Set value
 
-Restart Claude Code and test:
+```bash
+redis-cli -u "$REDIS_URL" SET key "value"
 ```
-User: "List available redis commands"
+
+### List keys
+
+```bash
+redis-cli -u "$REDIS_URL" KEYS "*"
+```
+
+### Get hash
+
+```bash
+redis-cli -u "$REDIS_URL" HGETALL hash_key
+```
+
+### Delete key
+
+```bash
+redis-cli -u "$REDIS_URL" DEL key
 ```
 
 ---
-
-## Environment Variables
-
-- `REDIS_URL`: redis://localhost:6379
-
-## Available Tools
-
-- `get`
-- `set`
-- `delete`
-- `keys`
-- `hget`
-- `hset`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with redis"
-```
-
-## Documentation
-
-See @anthropic/mcp-redis documentation for more details.
-
-## Source
-
-GitHub: https://github.com/redis/mcp-redis
 
 ## Author
 

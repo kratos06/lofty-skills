@@ -1,78 +1,73 @@
 ---
-name: datadog-mcp
+name: datadog
 description: Datadog monitoring, logs, traces, and incident response (Official)
 ---
 
-# datadog-mcp
+# Datadog Integration
 
 Datadog monitoring, logs, traces, and incident response (Official)
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variables
+
+Set these in your shell profile (`~/.zshrc` or `~/.bashrc`):
 
 ```bash
-npm install -g @anthropic/mcp-datadog
+export DATADOG_API_KEY="your-datadog-api-key"
+export DATADOG_APP_KEY="your-datadog-app-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://app.datadoghq.com/organization-settings/api-keys
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "datadog": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-datadog"],
-      "env": {
-            "DATADOG_API_KEY": "your-api-key",
-            "DATADOG_APP_KEY": "your-app-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available datadog commands"
-```
+https://app.datadoghq.com/organization-settings/api-keys
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `DATADOG_API_KEY`: Required - Your api-key
-- `DATADOG_APP_KEY`: Required - Your app-key
+**Base URL:** `https://api.datadoghq.com/api/v1`
 
-## Available Tools
+## Endpoints
 
-- `query_metrics`
-- `list_monitors`
-- `create_event`
-- `search_logs`
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/query` | Query metrics |
+| GET | `/monitor` | List monitors |
+| POST | `/events` | Create event |
+| GET | `/logs/events/search` | Search logs |
 
-## Quick Start Examples
+## Examples
 
-### Example 1
+### 1. Query metrics
+
+```bash
+curl -s \
+  "https://api.datadoghq.com/api/v1/query?from=now-1h&to=now&query=avg:system.cpu.user{*}"
 ```
-User: "Help me with datadog"
+
+### 2. List monitors
+
+```bash
+curl -s \
+  "https://api.datadoghq.com/api/v1/monitor"
 ```
 
-## Documentation
+### 3. Create event
 
-Official docs: https://docs.datadoghq.com/bits_ai/mcp_server/
+```bash
+curl -s -X POST -H "Content-Type: application/json" -d '{"title":"Event","text":"Details","priority":"normal"}' \
+  "https://api.datadoghq.com/api/v1/events"
+```
 
-## Source
+### 4. Search logs
 
-GitHub: https://github.com/DataDog/mcp-server
+```bash
+curl -s \
+  "https://api.datadoghq.com/api/v1/logs/events/search"
+```
+
+---
 
 ## Author
 

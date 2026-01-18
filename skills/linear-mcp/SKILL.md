@@ -1,76 +1,82 @@
 ---
-name: linear-mcp
+name: linear
 description: Linear issue tracking with cycles, projects, and high-velocity workflows
 ---
 
-# linear-mcp
+# Linear Integration
 
 Linear issue tracking with cycles, projects, and high-velocity workflows
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @modelcontextprotocol/server-linear
+export LINEAR_API_KEY="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://linear.app/settings/api
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "linear": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-linear"],
-      "env": {
-            "LINEAR_API_KEY": "lin_api_your-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available linear commands"
-```
+https://linear.app/settings/api → Personal API keys
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `LINEAR_API_KEY`: Required - lin_api_Your key
+**Base URL:** `https://api.linear.app/graphql`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `search_issues`
-- `create_issue`
-- `update_issue`
-- `list_projects`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with linear"
+```bash
+curl -H "Authorization: Bearer $LINEAR_API_KEY" \
+  "https://api.linear.app/graphql/endpoint"
 ```
 
-## Documentation
+## GraphQL Queries
 
-See @modelcontextprotocol/server-linear documentation for more details.
+**Endpoint:** `https://api.linear.app/graphql`
 
-## Source
+### List issues
 
-GitHub: https://github.com/linear/mcp-server
+```bash
+curl -s -X POST \
+  -H "Authorization: Bearer $LINEAR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ issues { nodes { id title state { name } } } }"}' \
+  "https://api.linear.app/graphql"
+```
+
+### Get issue
+
+```bash
+curl -s -X POST \
+  -H "Authorization: Bearer $LINEAR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ issue(id: \"xxx\") { id title description } }"}' \
+  "https://api.linear.app/graphql"
+```
+
+### Create issue
+
+```bash
+curl -s -X POST \
+  -H "Authorization: Bearer $LINEAR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "mutation { issueCreate(input: { teamId: \"xxx\", title: \"Bug\" }) { issue { id } } }"}' \
+  "https://api.linear.app/graphql"
+```
+
+### List projects
+
+```bash
+curl -s -X POST \
+  -H "Authorization: Bearer $LINEAR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ projects { nodes { id name } } }"}' \
+  "https://api.linear.app/graphql"
+```
+
+---
 
 ## Author
 

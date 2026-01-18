@@ -1,73 +1,64 @@
 ---
-name: weather-mcp
+name: weather
 description: Weather data and forecasts
 ---
 
-# weather-mcp
+# Weather Integration
 
 Weather data and forecasts
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-weather
+export OPENWEATHER_API_KEY="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://home.openweathermap.org/api_keys
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "weather": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-weather"],
-      "env": {
-            "OPENWEATHER_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available weather commands"
-```
+https://home.openweathermap.org/api_keys
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `OPENWEATHER_API_KEY`: Required - Your api-key
+**Base URL:** `https://api.openweathermap.org/data/2.5`
 
-## Available Tools
+**Authentication:** API key in query parameters
 
-- `get_current`
-- `get_forecast`
-- `get_historical`
+## Endpoints
 
-## Quick Start Examples
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/weather` | Current weather |
+| GET | `/forecast` | 5-day forecast |
+| GET | `/weather` | Weather by coords |
 
-### Example 1
+## Examples
+
+### 1. Current weather
+
+```bash
+curl -s \
+  "https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=$OPENWEATHER_API_KEY"
 ```
-User: "Help me with weather"
+
+### 2. 5-day forecast
+
+```bash
+curl -s \
+  "https://api.openweathermap.org/data/2.5/forecast?q=London&units=metric&appid=$OPENWEATHER_API_KEY"
 ```
 
-## Documentation
+### 3. Weather by coords
 
-See @anthropic/mcp-weather documentation for more details.
+```bash
+curl -s \
+  "https://api.openweathermap.org/data/2.5/weather?lat=51.5&lon=-0.1&units=metric&appid=$OPENWEATHER_API_KEY"
+```
 
-
+---
 
 ## Author
 

@@ -1,78 +1,105 @@
 ---
-name: slack-mcp
+name: slack
 description: Slack messaging with channel management and bot capabilities
 ---
 
-# slack-mcp
+# Slack Integration
 
 Slack messaging with channel management and bot capabilities
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @modelcontextprotocol/server-slack
+export SLACK_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://api.slack.com/apps
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "slack": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-slack"],
-      "env": {
-            "SLACK_BOT_TOKEN": "xoxb-your-bot-token",
-            "SLACK_TEAM_ID": "T0123456789"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available slack commands"
-```
+https://api.slack.com/apps → OAuth & Permissions → Bot Token
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `SLACK_BOT_TOKEN`: Required - xoxb-Your bot-token
-- `SLACK_TEAM_ID`: T0123456789
+**Base URL:** `https://slack.com/api`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `list_channels`
-- `post_message`
-- `get_channel_history`
-- `search_messages`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with slack"
+```bash
+curl -H "Authorization: Bearer $SLACK_TOKEN" \
+  "https://slack.com/api/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @modelcontextprotocol/server-slack documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/conversations.list` | List channels |
+| POST | `/chat.postMessage` | Send message |
+| GET | `/conversations.history` | Get messages |
+| POST | `/conversations.create` | Create channel |
+| GET | `/users.list` | List users |
+| POST | `/files.upload` | Upload file |
 
-## Source
+## Examples
 
-GitHub: https://github.com/slack/mcp-server
+### 1. List channels
+
+```bash
+curl -s -H "Authorization: Bearer $SLACK_TOKEN" \
+  "https://slack.com/api/conversations.list?types=public_channel,private_channel"
+```
+
+### 2. Send message
+
+```bash
+curl -s -H "Authorization: Bearer $SLACK_TOKEN" -X POST -H "Content-Type: application/json" -d '{"channel":"C123","text":"Hello"}' \
+  "https://slack.com/api/chat.postMessage"
+```
+
+### 3. Get messages
+
+```bash
+curl -s -H "Authorization: Bearer $SLACK_TOKEN" \
+  "https://slack.com/api/conversations.history?channel=C123&limit=100"
+```
+
+### 4. Create channel
+
+```bash
+curl -s -H "Authorization: Bearer $SLACK_TOKEN" -X POST -H "Content-Type: application/json" -d '{"name":"new-channel"}' \
+  "https://slack.com/api/conversations.create"
+```
+
+### 5. List users
+
+```bash
+curl -s -H "Authorization: Bearer $SLACK_TOKEN" \
+  "https://slack.com/api/users.list"
+```
+
+### 6. Upload file
+
+```bash
+curl -s -H "Authorization: Bearer $SLACK_TOKEN" -X POST -H "Content-Type: application/json" -d '{"channels":"C123","content":"file content"}' \
+  "https://slack.com/api/files.upload"
+```
+
+## Common Workflows
+
+### Send a message to a channel
+
+1. Get channel ID via conversations.list
+2. Post message via chat.postMessage
+
+### Get recent messages
+
+1. Get channel ID
+2. Call conversations.history with channel ID
+
+---
 
 ## Author
 

@@ -1,74 +1,77 @@
 ---
-name: discord-mcp
+name: discord
 description: Discord bot and messaging integration
 ---
 
-# discord-mcp
+# Discord Integration
 
 Discord bot and messaging integration
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-discord
+export DISCORD_BOT_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://discord.com/developers/applications
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "discord": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-discord"],
-      "env": {
-            "DISCORD_BOT_TOKEN": "your-bot-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available discord commands"
-```
+https://discord.com/developers/applications → Bot → Token
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `DISCORD_BOT_TOKEN`: Required - Your bot-token
+**Base URL:** `https://discord.com/api/v10`
 
-## Available Tools
+**Authentication:** Bot token
 
-- `send_message`
-- `list_channels`
-- `get_messages`
-- `create_channel`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with discord"
+```bash
+curl -H "Authorization: Bot $DISCORD_BOT_TOKEN" \
+  "https://discord.com/api/v10/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-discord documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/guilds/{guild_id}/channels` | List channels |
+| POST | `/channels/{channel_id}/messages` | Send message |
+| GET | `/channels/{channel_id}/messages` | Get messages |
+| POST | `/guilds/{guild_id}/channels` | Create channel |
 
+## Examples
 
+### 1. List channels
+
+```bash
+curl -s -H "Authorization: Bot $DISCORD_BOT_TOKEN" \
+  "https://discord.com/api/v10/guilds/{guild_id}/channels"
+```
+
+### 2. Send message
+
+```bash
+curl -s -H "Authorization: Bot $DISCORD_BOT_TOKEN" -X POST -H "Content-Type: application/json" -d '{"content":"Hello!"}' \
+  "https://discord.com/api/v10/channels/{channel_id}/messages"
+```
+
+### 3. Get messages
+
+```bash
+curl -s -H "Authorization: Bot $DISCORD_BOT_TOKEN" \
+  "https://discord.com/api/v10/channels/{channel_id}/messages?limit=50"
+```
+
+### 4. Create channel
+
+```bash
+curl -s -H "Authorization: Bot $DISCORD_BOT_TOKEN" -X POST -H "Content-Type: application/json" -d '{"name":"new-channel","type":0}' \
+  "https://discord.com/api/v10/guilds/{guild_id}/channels"
+```
+
+---
 
 ## Author
 

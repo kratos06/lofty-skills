@@ -1,76 +1,77 @@
 ---
-name: vercel-mcp
+name: vercel
 description: Vercel deployment and project management
 ---
 
-# vercel-mcp
+# Vercel Integration
 
 Vercel deployment and project management
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-vercel
+export VERCEL_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://vercel.com/account/tokens
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "vercel": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-vercel"],
-      "env": {
-            "VERCEL_TOKEN": "your-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available vercel commands"
-```
+https://vercel.com/account/tokens
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `VERCEL_TOKEN`: Required - Your token
+**Base URL:** `https://api.vercel.com`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `list_projects`
-- `list_deployments`
-- `create_deployment`
-- `get_logs`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with vercel"
+```bash
+curl -H "Authorization: Bearer $VERCEL_TOKEN" \
+  "https://api.vercel.com/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-vercel documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/v9/projects` | List projects |
+| GET | `/v6/deployments` | List deployments |
+| POST | `/v13/deployments` | Create deployment |
+| GET | `/v2/deployments/{id}/events` | Get deployment logs |
 
-## Source
+## Examples
 
-GitHub: https://github.com/vercel/mcp-server
+### 1. List projects
+
+```bash
+curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
+  "https://api.vercel.com/v9/projects"
+```
+
+### 2. List deployments
+
+```bash
+curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
+  "https://api.vercel.com/v6/deployments"
+```
+
+### 3. Create deployment
+
+```bash
+curl -s -H "Authorization: Bearer $VERCEL_TOKEN" -X POST -H "Content-Type: application/json" \
+  "https://api.vercel.com/v13/deployments"
+```
+
+### 4. Get deployment logs
+
+```bash
+curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
+  "https://api.vercel.com/v2/deployments/{id}/events"
+```
+
+---
 
 ## Author
 

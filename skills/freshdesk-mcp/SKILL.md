@@ -1,78 +1,85 @@
 ---
-name: freshdesk-mcp
+name: freshdesk
 description: Freshdesk helpdesk ticketing system integration
 ---
 
-# freshdesk-mcp
+# Freshdesk Integration
 
 Freshdesk helpdesk ticketing system integration
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-freshdesk
+export FRESHDESK_API_KEY="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://support.freshdesk.com/support/solutions/articles/215517-how-to-find-your-api-key
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "freshdesk": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-freshdesk"],
-      "env": {
-            "FRESHDESK_DOMAIN": "your-domain.freshdesk.com",
-            "FRESHDESK_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available freshdesk commands"
-```
+Profile Settings → Your API Key
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `FRESHDESK_DOMAIN`: Required - Your domain.freshdesk.com
-- `FRESHDESK_API_KEY`: Required - Your api-key
+**Base URL:** `https://{domain}.freshdesk.com/api/v2`
 
-## Available Tools
+**Authentication:** Basic Auth
 
-- `list_tickets`
-- `get_ticket`
-- `create_ticket`
-- `update_ticket`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with freshdesk"
+```bash
+curl -u "{FRESHDESK_API_KEY}:X" \
+  "https://{domain}.freshdesk.com/api/v2/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-freshdesk documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/tickets` | List tickets |
+| GET | `/tickets/{id}` | Get ticket |
+| POST | `/tickets` | Create ticket |
+| PUT | `/tickets/{id}` | Update ticket |
+| GET | `/contacts` | List contacts |
 
-## Source
+## Examples
 
-GitHub: https://github.com/freshworks/freshdesk-mcp
+### 1. List tickets
+
+```bash
+curl -s -u "$FRESHDESK_API_KEY:X" \
+  "https://{domain}.freshdesk.com/api/v2/tickets"
+```
+
+### 2. Get ticket
+
+```bash
+curl -s -u "$FRESHDESK_API_KEY:X" \
+  "https://{domain}.freshdesk.com/api/v2/tickets/{id}"
+```
+
+### 3. Create ticket
+
+```bash
+curl -s -u "$FRESHDESK_API_KEY:X" -X POST -H "Content-Type: application/json" -d '{"subject":"Issue","description":"Details","email":"customer@example.com","priority":1,"status":2}' \
+  "https://{domain}.freshdesk.com/api/v2/tickets"
+```
+
+### 4. Update ticket
+
+```bash
+curl -s -u "$FRESHDESK_API_KEY:X" -X PUT -H "Content-Type: application/json" -d '{"status":4}' \
+  "https://{domain}.freshdesk.com/api/v2/tickets/{id}"
+```
+
+### 5. List contacts
+
+```bash
+curl -s -u "$FRESHDESK_API_KEY:X" \
+  "https://{domain}.freshdesk.com/api/v2/contacts"
+```
+
+---
 
 ## Author
 

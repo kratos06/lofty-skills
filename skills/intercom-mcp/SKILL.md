@@ -1,76 +1,85 @@
 ---
-name: intercom-mcp
+name: intercom
 description: Intercom customer conversations and messaging platform
 ---
 
-# intercom-mcp
+# Intercom Integration
 
 Intercom customer conversations and messaging platform
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-intercom
+export INTERCOM_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://app.intercom.com/a/apps/_/developer-hub
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "intercom": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-intercom"],
-      "env": {
-            "INTERCOM_ACCESS_TOKEN": "your-access-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available intercom commands"
-```
+https://app.intercom.com → Settings → Developers → Developer Hub
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `INTERCOM_ACCESS_TOKEN`: Required - Your access-token
+**Base URL:** `https://api.intercom.io`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `list_conversations`
-- `get_conversation`
-- `reply_to_conversation`
-- `search_contacts`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with intercom"
+```bash
+curl -H "Authorization: Bearer $INTERCOM_TOKEN" \
+  "https://api.intercom.io/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-intercom documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/conversations` | List conversations |
+| GET | `/conversations/{id}` | Get conversation |
+| POST | `/conversations/{id}/reply` | Reply to conversation |
+| GET | `/contacts` | List contacts |
+| POST | `/contacts` | Create contact |
 
-## Source
+## Examples
 
-GitHub: https://github.com/intercom/mcp-server
+### 1. List conversations
+
+```bash
+curl -s -H "Authorization: Bearer $INTERCOM_TOKEN" \
+  "https://api.intercom.io/conversations"
+```
+
+### 2. Get conversation
+
+```bash
+curl -s -H "Authorization: Bearer $INTERCOM_TOKEN" \
+  "https://api.intercom.io/conversations/{id}"
+```
+
+### 3. Reply to conversation
+
+```bash
+curl -s -H "Authorization: Bearer $INTERCOM_TOKEN" -X POST -H "Content-Type: application/json" -d '{"message_type":"comment","type":"admin","admin_id":"xxx","body":"Reply text"}' \
+  "https://api.intercom.io/conversations/{id}/reply"
+```
+
+### 4. List contacts
+
+```bash
+curl -s -H "Authorization: Bearer $INTERCOM_TOKEN" \
+  "https://api.intercom.io/contacts"
+```
+
+### 5. Create contact
+
+```bash
+curl -s -H "Authorization: Bearer $INTERCOM_TOKEN" -X POST -H "Content-Type: application/json" -d '{"role":"user","email":"test@example.com"}' \
+  "https://api.intercom.io/contacts"
+```
+
+---
 
 ## Author
 

@@ -1,74 +1,85 @@
 ---
-name: clickup-mcp
+name: clickup
 description: ClickUp project and task management
 ---
 
-# clickup-mcp
+# ClickUp Integration
 
 ClickUp project and task management
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-clickup
+export CLICKUP_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://app.clickup.com/settings/apps
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "clickup": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-clickup"],
-      "env": {
-            "CLICKUP_API_TOKEN": "pk_your-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available clickup commands"
-```
+https://app.clickup.com/settings/apps → Generate API Token
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `CLICKUP_API_TOKEN`: Required - pk_Your token
+**Base URL:** `https://api.clickup.com/api/v2`
 
-## Available Tools
+**Authentication:** API key in `Authorization` header
 
-- `list_spaces`
-- `list_tasks`
-- `create_task`
-- `update_task`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with clickup"
+```bash
+curl -H "Authorization: $CLICKUP_TOKEN" \
+  "https://api.clickup.com/api/v2/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-clickup documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/team` | Get workspaces |
+| GET | `/team/{team_id}/space` | List spaces |
+| GET | `/list/{list_id}/task` | List tasks |
+| POST | `/list/{list_id}/task` | Create task |
+| PUT | `/task/{task_id}` | Update task |
 
+## Examples
 
+### 1. Get workspaces
+
+```bash
+curl -s -H "Authorization: $CLICKUP_TOKEN" \
+  "https://api.clickup.com/api/v2/team"
+```
+
+### 2. List spaces
+
+```bash
+curl -s -H "Authorization: $CLICKUP_TOKEN" \
+  "https://api.clickup.com/api/v2/team/{team_id}/space"
+```
+
+### 3. List tasks
+
+```bash
+curl -s -H "Authorization: $CLICKUP_TOKEN" \
+  "https://api.clickup.com/api/v2/list/{list_id}/task"
+```
+
+### 4. Create task
+
+```bash
+curl -s -H "Authorization: $CLICKUP_TOKEN" -X POST -H "Content-Type: application/json" -d '{"name":"Task","description":"Details"}' \
+  "https://api.clickup.com/api/v2/list/{list_id}/task"
+```
+
+### 5. Update task
+
+```bash
+curl -s -H "Authorization: $CLICKUP_TOKEN" -X PUT -H "Content-Type: application/json" -d '{"status":"complete"}' \
+  "https://api.clickup.com/api/v2/task/{task_id}"
+```
+
+---
 
 ## Author
 

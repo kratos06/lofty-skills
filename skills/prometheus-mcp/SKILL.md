@@ -1,74 +1,62 @@
 ---
-name: prometheus-mcp
+name: prometheus
 description: Prometheus metrics and alerting
 ---
 
-# prometheus-mcp
+# Prometheus Integration
 
 Prometheus metrics and alerting
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
-
-```bash
-npm install -g @anthropic/mcp-prometheus
-```
-
-### Step 2: Get API Credentials
-
-Configure the required credentials below.
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "prometheus": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-prometheus"],
-      "env": {
-            "PROMETHEUS_URL": "http://localhost:9090"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available prometheus commands"
-```
+No authentication required.
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `PROMETHEUS_URL`: http://localhost:9090
+**Base URL:** `http://localhost:9090/api/v1`
 
-## Available Tools
+## Endpoints
 
-- `query`
-- `query_range`
-- `list_metrics`
-- `get_alerts`
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/query` | Instant query |
+| GET | `/query_range` | Range query |
+| GET | `/label/__name__/values` | List metrics |
+| GET | `/alerts` | List alerts |
 
-## Quick Start Examples
+## Examples
 
-### Example 1
+### 1. Instant query
+
+```bash
+curl -s \
+  "http://localhost:9090/api/v1/query?query=up"
 ```
-User: "Help me with prometheus"
+
+### 2. Range query
+
+```bash
+curl -s \
+  "http://localhost:9090/api/v1/query_range?query=up&start=2024-01-01T00:00:00Z&end=2024-01-02T00:00:00Z&step=15m"
 ```
 
-## Documentation
+### 3. List metrics
 
-See @anthropic/mcp-prometheus documentation for more details.
+```bash
+curl -s \
+  "http://localhost:9090/api/v1/label/__name__/values"
+```
 
+### 4. List alerts
 
+```bash
+curl -s \
+  "http://localhost:9090/api/v1/alerts"
+```
+
+---
 
 ## Author
 

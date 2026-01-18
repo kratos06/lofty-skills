@@ -1,75 +1,63 @@
 ---
-name: paypal-mcp
+name: paypal
 description: PayPal payment integration
 ---
 
-# paypal-mcp
+# PayPal Integration
 
 PayPal payment integration
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Get API Credentials
 
-```bash
-npm install -g @anthropic/mcp-paypal
-```
-
-### Step 2: Get API Credentials
-
-Get your credentials from: https://developer.paypal.com/dashboard/applications/sandbox
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "paypal": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-paypal"],
-      "env": {
-            "PAYPAL_CLIENT_ID": "your-client-id",
-            "PAYPAL_CLIENT_SECRET": "your-client-secret"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available paypal commands"
-```
+https://developer.paypal.com/dashboard/applications/sandbox
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `PAYPAL_CLIENT_ID`: Required - Your client-id
-- `PAYPAL_CLIENT_SECRET`: Required - Your client-secret
+**Base URL:** `https://api-m.sandbox.paypal.com/v2`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `list_transactions`
-- `create_payment`
-- `capture_payment`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with paypal"
+```bash
+curl -H "Authorization: Bearer $undefined" \
+  "https://api-m.sandbox.paypal.com/v2/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-paypal documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/checkout/orders` | Create order |
+| POST | `/checkout/orders/{id}/capture` | Capture payment |
+| GET | `/checkout/orders/{id}` | Get order |
 
+## Examples
 
+### 1. Create order
+
+```bash
+curl -s -H "Authorization: Bearer $undefined" -X POST -H "Content-Type: application/json" -d '{"intent":"CAPTURE","purchase_units":[{"amount":{"currency_code":"USD","value":"10.00"}}]}' \
+  "https://api-m.sandbox.paypal.com/v2/checkout/orders"
+```
+
+### 2. Capture payment
+
+```bash
+curl -s -H "Authorization: Bearer $undefined" -X POST -H "Content-Type: application/json" \
+  "https://api-m.sandbox.paypal.com/v2/checkout/orders/{id}/capture"
+```
+
+### 3. Get order
+
+```bash
+curl -s -H "Authorization: Bearer $undefined" \
+  "https://api-m.sandbox.paypal.com/v2/checkout/orders/{id}"
+```
+
+---
 
 ## Author
 

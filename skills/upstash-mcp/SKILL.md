@@ -1,5 +1,5 @@
 ---
-name: upstash-mcp
+name: upstash
 description: Upstash serverless Redis and Kafka
 ---
 
@@ -7,68 +7,17 @@ description: Upstash serverless Redis and Kafka
 
 Upstash serverless Redis and Kafka
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with upstash.
 
-```bash
-npm install -g @anthropic/mcp-upstash
-```
+## Features
 
-### Step 2: Get API Credentials
+- upstash
+- redis
+- kafka
 
-Get your credentials from: https://console.upstash.com/
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "upstash": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-upstash"],
-      "env": {
-            "UPSTASH_REDIS_REST_URL": "https://your-endpoint.upstash.io",
-            "UPSTASH_REDIS_REST_TOKEN": "your-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available upstash commands"
-```
-
----
-
-## Environment Variables
-
-- `UPSTASH_REDIS_REST_URL`: Required - https://Your endpoint.upstash.io
-- `UPSTASH_REDIS_REST_TOKEN`: Required - Your token
-
-## Available Tools
-
-- `get`
-- `set`
-- `delete`
-- `keys`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with upstash"
-```
-
-## Documentation
-
-See @anthropic/mcp-upstash documentation for more details.
 
 
 

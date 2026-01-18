@@ -1,81 +1,63 @@
 ---
-name: aws-mcp
+name: aws
 description: AWS comprehensive integration with documentation and best practices (Official)
 ---
 
-# aws-mcp
+# AWS Integration
 
 AWS comprehensive integration with documentation and best practices (Official)
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variables
 
 ```bash
-npm install -g @anthropic/mcp-aws
+export AWS_ACCESS_KEY_ID="your-value"
+export AWS_SECRET_ACCESS_KEY="your-value"
+export AWS_REGION="your-value"
 ```
 
-### Step 2: Get API Credentials
+Get credentials: https://console.aws.amazon.com/iam/home#/security_credentials
 
-Get your credentials from: https://console.aws.amazon.com/iam/home#/security_credentials
+## Commands
 
-### Step 3: Configure Claude Code
+### List S3 buckets
 
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "aws": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-aws"],
-      "env": {
-            "AWS_ACCESS_KEY_ID": "your-access-key",
-            "AWS_SECRET_ACCESS_KEY": "your-secret-key",
-            "AWS_REGION": "us-east-1"
-      }
-    }
-  }
-}
+```bash
+aws s3 ls
 ```
 
-### Step 4: Verify Installation
+### List bucket contents
 
-Restart Claude Code and test:
+```bash
+aws s3 ls s3://bucket-name/
 ```
-User: "List available aws commands"
+
+### Upload file to S3
+
+```bash
+aws s3 cp file.txt s3://bucket-name/
+```
+
+### List EC2 instances
+
+```bash
+aws ec2 describe-instances
+```
+
+### List Lambda functions
+
+```bash
+aws lambda list-functions
+```
+
+### Invoke Lambda
+
+```bash
+aws lambda invoke --function-name myFunc output.json
 ```
 
 ---
-
-## Environment Variables
-
-- `AWS_ACCESS_KEY_ID`: Required - Your access-key
-- `AWS_SECRET_ACCESS_KEY`: Required - Your secret-key
-- `AWS_REGION`: us-east-1
-
-## Available Tools
-
-- `s3_list`
-- `s3_get`
-- `s3_put`
-- `lambda_invoke`
-- `ec2_describe`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with aws"
-```
-
-## Documentation
-
-See @anthropic/mcp-aws documentation for more details.
-
-## Source
-
-GitHub: https://github.com/awslabs/mcp
 
 ## Author
 

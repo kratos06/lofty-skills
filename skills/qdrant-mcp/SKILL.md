@@ -1,5 +1,5 @@
 ---
-name: qdrant-mcp
+name: qdrant
 description: Qdrant vector database for semantic search and AI memory
 ---
 
@@ -7,68 +7,18 @@ description: Qdrant vector database for semantic search and AI memory
 
 Qdrant vector database for semantic search and AI memory
 
-## Prerequisites
+## Usage
 
-### Step 1: Install MCP Server
+This skill provides guidance for working with qdrant.
 
-```bash
-npm install -g @anthropic/mcp-qdrant
-```
+## Features
 
-### Step 2: Get API Credentials
+- qdrant
+- vector
+- embeddings
+- ai
 
-Configure the required credentials below.
 
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "qdrant": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-qdrant"],
-      "env": {
-            "QDRANT_URL": "http://localhost:6333",
-            "QDRANT_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available qdrant commands"
-```
-
----
-
-## Environment Variables
-
-- `QDRANT_URL`: http://localhost:6333
-- `QDRANT_API_KEY`: Required - Your api-key
-
-## Available Tools
-
-- `upsert`
-- `search`
-- `delete`
-- `get_collection`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with qdrant"
-```
-
-## Documentation
-
-See @anthropic/mcp-qdrant documentation for more details.
 
 ## Source
 

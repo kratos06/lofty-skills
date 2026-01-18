@@ -1,73 +1,69 @@
 ---
-name: sendgrid-mcp
+name: sendgrid
 description: SendGrid email marketing and delivery
 ---
 
-# sendgrid-mcp
+# SendGrid Integration
 
 SendGrid email marketing and delivery
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-sendgrid
+export SENDGRID_API_KEY="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://app.sendgrid.com/settings/api_keys
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "sendgrid": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-sendgrid"],
-      "env": {
-            "SENDGRID_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available sendgrid commands"
-```
+https://app.sendgrid.com/settings/api_keys
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `SENDGRID_API_KEY`: Required - Your api-key
+**Base URL:** `https://api.sendgrid.com/v3`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `send_email`
-- `list_templates`
-- `get_stats`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with sendgrid"
+```bash
+curl -H "Authorization: Bearer $SENDGRID_API_KEY" \
+  "https://api.sendgrid.com/v3/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-sendgrid documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/mail/send` | Send email |
+| GET | `/templates` | List templates |
+| GET | `/stats` | Get stats |
 
+## Examples
 
+### 1. Send email
+
+```bash
+curl -s -H "Authorization: Bearer $SENDGRID_API_KEY" -X POST -H "Content-Type: application/json" -d '{"personalizations":[{"to":[{"email":"to@example.com"}]}],"from":{"email":"from@example.com"},"subject":"Hello","content":[{"type":"text/plain","value":"Body"}]}' \
+  "https://api.sendgrid.com/v3/mail/send"
+```
+
+### 2. List templates
+
+```bash
+curl -s -H "Authorization: Bearer $SENDGRID_API_KEY" \
+  "https://api.sendgrid.com/v3/templates"
+```
+
+### 3. Get stats
+
+```bash
+curl -s -H "Authorization: Bearer $SENDGRID_API_KEY" \
+  "https://api.sendgrid.com/v3/stats?start_date=2024-01-01"
+```
+
+---
 
 ## Author
 

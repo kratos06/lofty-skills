@@ -1,76 +1,72 @@
 ---
-name: twilio-mcp
+name: twilio
 description: Twilio SMS and voice communication
 ---
 
-# twilio-mcp
+# Twilio Integration
 
 Twilio SMS and voice communication
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variables
+
+Set these in your shell profile (`~/.zshrc` or `~/.bashrc`):
 
 ```bash
-npm install -g @anthropic/mcp-twilio
+export TWILIO_ACCOUNT_SID="your-twilio-account-sid"
+export TWILIO_AUTH_TOKEN="your-twilio-auth-token"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://console.twilio.com/
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "twilio": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-twilio"],
-      "env": {
-            "TWILIO_ACCOUNT_SID": "your-account-sid",
-            "TWILIO_AUTH_TOKEN": "your-auth-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available twilio commands"
-```
+https://console.twilio.com → Account → API keys
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `TWILIO_ACCOUNT_SID`: Required - Your account-sid
-- `TWILIO_AUTH_TOKEN`: Required - Your auth-token
+**Base URL:** `https://api.twilio.com/2010-04-01/Accounts/{TWILIO_ACCOUNT_SID}`
 
-## Available Tools
+**Authentication:** Basic Auth
 
-- `send_sms`
-- `make_call`
-- `list_messages`
-- `list_calls`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with twilio"
+```bash
+curl -u "{TWILIO_ACCOUNT_SID}:{TWILIO_AUTH_TOKEN}" \
+  "https://api.twilio.com/2010-04-01/Accounts/{TWILIO_ACCOUNT_SID}/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-twilio documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/Messages.json` | Send SMS |
+| GET | `/Messages.json` | List messages |
+| POST | `/Calls.json` | Make call |
 
+## Examples
 
+### 1. Send SMS
+
+```bash
+curl -s -u "$TWILIO_ACCOUNT_SID:$TWILIO_AUTH_TOKEN" -X POST -H "Content-Type: application/json" -d '{"To":"+1234567890","From":"+0987654321","Body":"Hello!"}' \
+  "https://api.twilio.com/2010-04-01/Accounts/{TWILIO_ACCOUNT_SID}/Messages.json"
+```
+
+### 2. List messages
+
+```bash
+curl -s -u "$TWILIO_ACCOUNT_SID:$TWILIO_AUTH_TOKEN" \
+  "https://api.twilio.com/2010-04-01/Accounts/{TWILIO_ACCOUNT_SID}/Messages.json"
+```
+
+### 3. Make call
+
+```bash
+curl -s -u "$TWILIO_ACCOUNT_SID:$TWILIO_AUTH_TOKEN" -X POST -H "Content-Type: application/json" -d '{"To":"+1234567890","From":"+0987654321","Url":"http://demo.twilio.com/docs/voice.xml"}' \
+  "https://api.twilio.com/2010-04-01/Accounts/{TWILIO_ACCOUNT_SID}/Calls.json"
+```
+
+---
 
 ## Author
 

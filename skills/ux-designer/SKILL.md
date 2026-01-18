@@ -7,41 +7,9 @@ description: UX design and research
 
 UX design and research
 
-## Installation
+## Usage
 
-### Step 1: Install MCP Server
-
-```bash
-npm install -g @modelcontextprotocol/server-ux-designer
-# or
-npm install -g @anthropic/mcp-ux-designer
-```
-
-### Step 2: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json`):
-
-```json
-{
-  "mcpServers": {
-    "ux-designer": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-ux-designer"],
-      "env": {
-        // Add required environment variables
-      }
-    }
-  }
-}
-```
-
-### Step 3: Restart Claude Code
-
-After configuration, restart Claude Code to load the MCP server.
-
-## Quick Start
-
-After installation, the ux-designer tools will be available in Claude Code.
+This skill provides guidance for working with ux-designer.
 
 ## Features
 

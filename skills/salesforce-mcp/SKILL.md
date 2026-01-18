@@ -1,78 +1,85 @@
 ---
-name: salesforce-mcp
+name: salesforce
 description: Salesforce CRM data and operations integration
 ---
 
-# salesforce-mcp
+# Salesforce Integration
 
 Salesforce CRM data and operations integration
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-salesforce
+export SALESFORCE_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://help.salesforce.com/s/articleView?id=sf.connected_app_create_api_integration.htm
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "salesforce": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-salesforce"],
-      "env": {
-            "SALESFORCE_INSTANCE_URL": "https://your-instance.salesforce.com",
-            "SALESFORCE_ACCESS_TOKEN": "your-access-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available salesforce commands"
-```
+Setup → Apps → App Manager → Connected App → OAuth
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `SALESFORCE_INSTANCE_URL`: Required - https://Your instance.salesforce.com
-- `SALESFORCE_ACCESS_TOKEN`: Required - Your access-token
+**Base URL:** `https://{instance}.salesforce.com/services/data/v58.0`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `query`
-- `create_record`
-- `update_record`
-- `delete_record`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with salesforce"
+```bash
+curl -H "Authorization: Bearer $SALESFORCE_TOKEN" \
+  "https://{instance}.salesforce.com/services/data/v58.0/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-salesforce documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/sobjects` | List objects |
+| GET | `/query` | SOQL query |
+| POST | `/sobjects/Account` | Create account |
+| PATCH | `/sobjects/Account/{id}` | Update account |
+| GET | `/sobjects/Contact/{id}` | Get contact |
 
-## Source
+## Examples
 
-GitHub: https://github.com/salesforce/mcp-server
+### 1. List objects
+
+```bash
+curl -s -H "Authorization: Bearer $SALESFORCE_TOKEN" \
+  "https://{instance}.salesforce.com/services/data/v58.0/sobjects"
+```
+
+### 2. SOQL query
+
+```bash
+curl -s -H "Authorization: Bearer $SALESFORCE_TOKEN" \
+  "https://{instance}.salesforce.com/services/data/v58.0/query?q=SELECT Id,Name FROM Account LIMIT 10"
+```
+
+### 3. Create account
+
+```bash
+curl -s -H "Authorization: Bearer $SALESFORCE_TOKEN" -X POST -H "Content-Type: application/json" -d '{"Name":"Acme Corp"}' \
+  "https://{instance}.salesforce.com/services/data/v58.0/sobjects/Account"
+```
+
+### 4. Update account
+
+```bash
+curl -s -H "Authorization: Bearer $SALESFORCE_TOKEN" -X PATCH -H "Content-Type: application/json" -d '{"Name":"New Name"}' \
+  "https://{instance}.salesforce.com/services/data/v58.0/sobjects/Account/{id}"
+```
+
+### 5. Get contact
+
+```bash
+curl -s -H "Authorization: Bearer $SALESFORCE_TOKEN" \
+  "https://{instance}.salesforce.com/services/data/v58.0/sobjects/Contact/{id}"
+```
+
+---
 
 ## Author
 

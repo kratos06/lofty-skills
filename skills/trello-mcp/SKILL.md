@@ -1,76 +1,83 @@
 ---
-name: trello-mcp
+name: trello
 description: Trello boards, lists, and cards management
 ---
 
-# trello-mcp
+# Trello Integration
 
 Trello boards, lists, and cards management
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variables
+
+Set these in your shell profile (`~/.zshrc` or `~/.bashrc`):
 
 ```bash
-npm install -g @anthropic/mcp-trello
+export TRELLO_API_KEY="your-trello-api-key"
+export TRELLO_TOKEN="your-trello-token"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://trello.com/app-key
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "trello": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-trello"],
-      "env": {
-            "TRELLO_API_KEY": "your-api-key",
-            "TRELLO_TOKEN": "your-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available trello commands"
-```
+https://trello.com/app-key
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `TRELLO_API_KEY`: Required - Your api-key
-- `TRELLO_TOKEN`: Required - Your token
+**Base URL:** `https://api.trello.com/1`
 
-## Available Tools
+**Authentication:** API key in query parameters
 
-- `list_boards`
-- `list_cards`
-- `create_card`
-- `move_card`
+## Endpoints
 
-## Quick Start Examples
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/members/me/boards` | List boards |
+| GET | `/boards/{id}/lists` | Get lists on board |
+| GET | `/lists/{id}/cards` | Get cards in list |
+| POST | `/cards` | Create card |
+| PUT | `/cards/{id}` | Update card |
 
-### Example 1
+## Examples
+
+### 1. List boards
+
+```bash
+curl -s \
+  "https://api.trello.com/1/members/me/boards?key=$TRELLO_API_KEY&token=$TRELLO_TOKEN"
 ```
-User: "Help me with trello"
+
+### 2. Get lists on board
+
+```bash
+curl -s \
+  "https://api.trello.com/1/boards/{id}/lists?key=$TRELLO_API_KEY&token=$TRELLO_TOKEN"
 ```
 
-## Documentation
+### 3. Get cards in list
 
-See @anthropic/mcp-trello documentation for more details.
+```bash
+curl -s \
+  "https://api.trello.com/1/lists/{id}/cards?key=$TRELLO_API_KEY&token=$TRELLO_TOKEN"
+```
 
+### 4. Create card
 
+```bash
+curl -s -X POST -H "Content-Type: application/json" \
+  "https://api.trello.com/1/cards?idList={list_id}&name=Task&key=$TRELLO_API_KEY&token=$TRELLO_TOKEN"
+```
+
+### 5. Update card
+
+```bash
+curl -s -X PUT -H "Content-Type: application/json" \
+  "https://api.trello.com/1/cards/{id}?idList={new_list_id}&key=$TRELLO_API_KEY&token=$TRELLO_TOKEN"
+```
+
+---
 
 ## Author
 

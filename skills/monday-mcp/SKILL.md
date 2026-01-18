@@ -1,76 +1,72 @@
 ---
-name: monday-mcp
+name: monday
 description: Monday.com board management with items and team planning
 ---
 
-# monday-mcp
+# Monday.com Integration
 
 Monday.com board management with items and team planning
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-monday
+export MONDAY_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://monday.com/developers/apps
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "monday": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-monday"],
-      "env": {
-            "MONDAY_API_TOKEN": "your-api-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available monday commands"
-```
+https://monday.com → Profile → Developers → My Access Tokens
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `MONDAY_API_TOKEN`: Required - Your api-token
+**Base URL:** `https://api.monday.com/v2`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `list_boards`
-- `list_items`
-- `create_item`
-- `update_item`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with monday"
+```bash
+curl -H "Authorization: Bearer $MONDAY_TOKEN" \
+  "https://api.monday.com/v2/endpoint"
 ```
 
-## Documentation
+## GraphQL Queries
 
-See @anthropic/mcp-monday documentation for more details.
+**Endpoint:** `https://api.monday.com/v2`
 
-## Source
+### List boards
 
-GitHub: https://github.com/monday/mcp-server
+```bash
+curl -s -X POST \
+  -H "Authorization: Bearer $MONDAY_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ boards { id name } }"}' \
+  "https://api.monday.com/v2"
+```
+
+### Get board items
+
+```bash
+curl -s -X POST \
+  -H "Authorization: Bearer $MONDAY_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ boards(ids: [123]) { items_page { items { id name } } } }"}' \
+  "https://api.monday.com/v2"
+```
+
+### Create item
+
+```bash
+curl -s -X POST \
+  -H "Authorization: Bearer $MONDAY_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "mutation { create_item(board_id: 123, item_name: \"Task\") { id } }"}' \
+  "https://api.monday.com/v2"
+```
+
+---
 
 ## Author
 

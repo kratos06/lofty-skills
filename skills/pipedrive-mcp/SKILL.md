@@ -1,76 +1,80 @@
 ---
-name: pipedrive-mcp
+name: pipedrive
 description: Pipedrive sales pipeline management and deal tracking
 ---
 
-# pipedrive-mcp
+# Pipedrive Integration
 
 Pipedrive sales pipeline management and deal tracking
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-pipedrive
+export PIPEDRIVE_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://app.pipedrive.com/settings/api
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "pipedrive": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-pipedrive"],
-      "env": {
-            "PIPEDRIVE_API_TOKEN": "your-api-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available pipedrive commands"
-```
+Settings → Personal preferences → API
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `PIPEDRIVE_API_TOKEN`: Required - Your api-token
+**Base URL:** `https://api.pipedrive.com/v1`
 
-## Available Tools
+**Authentication:** API key in query parameters
 
-- `list_deals`
-- `create_deal`
-- `list_persons`
-- `create_person`
+## Endpoints
 
-## Quick Start Examples
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/deals` | List deals |
+| POST | `/deals` | Create deal |
+| GET | `/persons` | List persons |
+| POST | `/persons` | Create person |
+| GET | `/organizations` | List organizations |
 
-### Example 1
+## Examples
+
+### 1. List deals
+
+```bash
+curl -s \
+  "https://api.pipedrive.com/v1/deals?api_token=$PIPEDRIVE_TOKEN"
 ```
-User: "Help me with pipedrive"
+
+### 2. Create deal
+
+```bash
+curl -s -X POST -H "Content-Type: application/json" -d '{"title":"New Deal","value":1000}' \
+  "https://api.pipedrive.com/v1/deals?api_token=$PIPEDRIVE_TOKEN"
 ```
 
-## Documentation
+### 3. List persons
 
-See @anthropic/mcp-pipedrive documentation for more details.
+```bash
+curl -s \
+  "https://api.pipedrive.com/v1/persons?api_token=$PIPEDRIVE_TOKEN"
+```
 
-## Source
+### 4. Create person
 
-GitHub: https://github.com/pipedrive/mcp-server
+```bash
+curl -s -X POST -H "Content-Type: application/json" -d '{"name":"John Doe","email":"john@example.com"}' \
+  "https://api.pipedrive.com/v1/persons?api_token=$PIPEDRIVE_TOKEN"
+```
+
+### 5. List organizations
+
+```bash
+curl -s \
+  "https://api.pipedrive.com/v1/organizations?api_token=$PIPEDRIVE_TOKEN"
+```
+
+---
 
 ## Author
 

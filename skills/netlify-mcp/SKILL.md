@@ -1,76 +1,77 @@
 ---
-name: netlify-mcp
+name: netlify
 description: Netlify site deployment and functions
 ---
 
-# netlify-mcp
+# Netlify Integration
 
 Netlify site deployment and functions
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-netlify
+export NETLIFY_AUTH_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://app.netlify.com/user/applications#personal-access-tokens
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "netlify": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-netlify"],
-      "env": {
-            "NETLIFY_AUTH_TOKEN": "your-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available netlify commands"
-```
+https://app.netlify.com/user/applications#personal-access-tokens
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `NETLIFY_AUTH_TOKEN`: Required - Your token
+**Base URL:** `https://api.netlify.com/api/v1`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `list_sites`
-- `get_site`
-- `create_deploy`
-- `list_deploys`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with netlify"
+```bash
+curl -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" \
+  "https://api.netlify.com/api/v1/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-netlify documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/sites` | List sites |
+| GET | `/sites/{site_id}/deploys` | List deploys |
+| POST | `/sites/{site_id}/deploys` | Create deploy |
+| GET | `/sites/{site_id}/forms` | List forms |
 
-## Source
+## Examples
 
-GitHub: https://github.com/netlify/mcp-server
+### 1. List sites
+
+```bash
+curl -s -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" \
+  "https://api.netlify.com/api/v1/sites"
+```
+
+### 2. List deploys
+
+```bash
+curl -s -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" \
+  "https://api.netlify.com/api/v1/sites/{site_id}/deploys"
+```
+
+### 3. Create deploy
+
+```bash
+curl -s -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" -X POST -H "Content-Type: application/json" \
+  "https://api.netlify.com/api/v1/sites/{site_id}/deploys"
+```
+
+### 4. List forms
+
+```bash
+curl -s -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" \
+  "https://api.netlify.com/api/v1/sites/{site_id}/forms"
+```
+
+---
 
 ## Author
 

@@ -1,76 +1,93 @@
 ---
-name: gitlab-mcp
+name: gitlab
 description: GitLab projects, merge requests, and CI/CD
 ---
 
-# gitlab-mcp
+# GitLab Integration
 
 GitLab projects, merge requests, and CI/CD
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @modelcontextprotocol/server-gitlab
+export GITLAB_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://gitlab.com/-/profile/personal_access_tokens
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "gitlab": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-gitlab"],
-      "env": {
-            "GITLAB_PERSONAL_ACCESS_TOKEN": "glpat-your-token",
-            "GITLAB_API_URL": "https://gitlab.com/api/v4"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available gitlab commands"
-```
+https://gitlab.com/-/profile/personal_access_tokens
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `GITLAB_PERSONAL_ACCESS_TOKEN`: Required - glpat-Your token
-- `GITLAB_API_URL`: https://gitlab.com/api/v4
+**Base URL:** `https://gitlab.com/api/v4`
 
-## Available Tools
+**Authentication:** API key in `PRIVATE-TOKEN` header
 
-- `list_projects`
-- `get_file`
-- `create_issue`
-- `create_merge_request`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with gitlab"
+```bash
+curl -H "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+  "https://gitlab.com/api/v4/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @modelcontextprotocol/server-gitlab documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/projects` | List projects |
+| GET | `/projects/{id}` | Get project |
+| GET | `/projects/{id}/issues` | List issues |
+| POST | `/projects/{id}/issues` | Create issue |
+| GET | `/projects/{id}/merge_requests` | List MRs |
+| POST | `/projects/{id}/merge_requests` | Create MR |
 
+## Examples
 
+### 1. List projects
+
+```bash
+curl -s -H "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+  "https://gitlab.com/api/v4/projects?membership=true"
+```
+
+### 2. Get project
+
+```bash
+curl -s -H "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+  "https://gitlab.com/api/v4/projects/{id}"
+```
+
+### 3. List issues
+
+```bash
+curl -s -H "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+  "https://gitlab.com/api/v4/projects/{id}/issues"
+```
+
+### 4. Create issue
+
+```bash
+curl -s -H "PRIVATE-TOKEN: $GITLAB_TOKEN" -X POST -H "Content-Type: application/json" -d '{"title":"Bug","description":"Details"}' \
+  "https://gitlab.com/api/v4/projects/{id}/issues"
+```
+
+### 5. List MRs
+
+```bash
+curl -s -H "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+  "https://gitlab.com/api/v4/projects/{id}/merge_requests"
+```
+
+### 6. Create MR
+
+```bash
+curl -s -H "PRIVATE-TOKEN: $GITLAB_TOKEN" -X POST -H "Content-Type: application/json" -d '{"source_branch":"feature","target_branch":"main","title":"Feature"}' \
+  "https://gitlab.com/api/v4/projects/{id}/merge_requests"
+```
+
+---
 
 ## Author
 

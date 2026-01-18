@@ -1,73 +1,69 @@
 ---
-name: exa-mcp
+name: exa
 description: Exa AI-powered search engine
 ---
 
-# exa-mcp
+# Exa Search Integration
 
 Exa AI-powered search engine
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-exa
+export EXA_API_KEY="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://dashboard.exa.ai/api-keys
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "exa": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-exa"],
-      "env": {
-            "EXA_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available exa commands"
-```
+https://dashboard.exa.ai/api-keys
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `EXA_API_KEY`: Required - Your api-key
+**Base URL:** `https://api.exa.ai`
 
-## Available Tools
+**Authentication:** Bearer token in `x-api-key` header
 
-- `search`
-- `find_similar`
-- `get_contents`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with exa"
+```bash
+curl -H "x-api-key: Bearer $EXA_API_KEY" \
+  "https://api.exa.ai/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @anthropic/mcp-exa documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/search` | Search web |
+| POST | `/findSimilar` | Find similar |
+| POST | `/contents` | Get contents |
 
+## Examples
 
+### 1. Search web
+
+```bash
+curl -s -H "x-api-key: Bearer $EXA_API_KEY" -X POST -H "Content-Type: application/json" -d '{"query":"search term","numResults":10}' \
+  "https://api.exa.ai/search"
+```
+
+### 2. Find similar
+
+```bash
+curl -s -H "x-api-key: Bearer $EXA_API_KEY" -X POST -H "Content-Type: application/json" -d '{"url":"https://example.com"}' \
+  "https://api.exa.ai/findSimilar"
+```
+
+### 3. Get contents
+
+```bash
+curl -s -H "x-api-key: Bearer $EXA_API_KEY" -X POST -H "Content-Type: application/json" -d '{"ids":["id1","id2"]}' \
+  "https://api.exa.ai/contents"
+```
+
+---
 
 ## Author
 

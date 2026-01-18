@@ -1,74 +1,70 @@
 ---
-name: telegram-mcp
+name: telegram
 description: Telegram Bot API integration
 ---
 
-# telegram-mcp
+# Telegram Integration
 
 Telegram Bot API integration
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @anthropic/mcp-telegram
+export TELEGRAM_BOT_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://t.me/BotFather
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "telegram": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/mcp-telegram"],
-      "env": {
-            "TELEGRAM_BOT_TOKEN": "your-bot-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available telegram commands"
-```
+Message @BotFather on Telegram → /newbot
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `TELEGRAM_BOT_TOKEN`: Required - Your bot-token
+**Base URL:** `https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}`
 
-## Available Tools
+## Endpoints
 
-- `send_message`
-- `get_updates`
-- `send_photo`
-- `send_document`
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/getMe` | Get bot info |
+| POST | `/sendMessage` | Send message |
+| GET | `/getUpdates` | Get updates/messages |
+| POST | `/sendPhoto` | Send photo |
 
-## Quick Start Examples
+## Examples
 
-### Example 1
+### 1. Get bot info
+
+```bash
+curl -s \
+  "https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getMe"
 ```
-User: "Help me with telegram"
+
+### 2. Send message
+
+```bash
+curl -s -X POST -H "Content-Type: application/json" -d '{"chat_id":"123","text":"Hello!"}' \
+  "https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
 ```
 
-## Documentation
+### 3. Get updates/messages
 
-See @anthropic/mcp-telegram documentation for more details.
+```bash
+curl -s \
+  "https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUpdates"
+```
 
+### 4. Send photo
 
+```bash
+curl -s -X POST -H "Content-Type: application/json" -d '{"chat_id":"123","photo":"url_or_file_id"}' \
+  "https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendPhoto"
+```
+
+---
 
 ## Author
 

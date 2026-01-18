@@ -1,77 +1,93 @@
 ---
-name: notion-mcp
+name: notion
 description: Notion workspace integration with semantic search and page management
 ---
 
-# notion-mcp
+# Notion Integration
 
 Notion workspace integration with semantic search and page management
 
-## Prerequisites
+## Configuration
 
-### Step 1: Install MCP Server
+### Environment Variable
 
 ```bash
-npm install -g @modelcontextprotocol/server-notion
+export NOTION_TOKEN="your-api-key"
 ```
 
-### Step 2: Get API Credentials
+### Get API Credentials
 
-Get your credentials from: https://www.notion.so/my-integrations
-
-### Step 3: Configure Claude Code
-
-Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
-
-```json
-{
-  "mcpServers": {
-    "notion": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-notion"],
-      "env": {
-            "NOTION_API_TOKEN": "secret_your-token"
-      }
-    }
-  }
-}
-```
-
-### Step 4: Verify Installation
-
-Restart Claude Code and test:
-```
-User: "List available notion commands"
-```
+https://www.notion.so/my-integrations → Create integration → Copy Internal Integration Token
 
 ---
 
-## Environment Variables
+## API Reference
 
-- `NOTION_API_TOKEN`: Required - secret_Your token
+**Base URL:** `https://api.notion.com/v1`
 
-## Available Tools
+**Authentication:** Bearer token in `Authorization` header
 
-- `search`
-- `get_page`
-- `create_page`
-- `update_page`
-- `query_database`
-
-## Quick Start Examples
-
-### Example 1
-```
-User: "Help me with notion"
+```bash
+curl -H "Authorization: Bearer $NOTION_TOKEN" \
+  "https://api.notion.com/v1/endpoint"
 ```
 
-## Documentation
+## Endpoints
 
-See @modelcontextprotocol/server-notion documentation for more details.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/search` | Search pages/databases |
+| GET | `/pages/{page_id}` | Get page |
+| POST | `/pages` | Create page |
+| PATCH | `/pages/{page_id}` | Update page |
+| POST | `/databases/{database_id}/query` | Query database |
+| GET | `/blocks/{block_id}/children` | Get page content |
 
-## Source
+## Examples
 
-GitHub: https://github.com/notion/mcp-server
+### 1. Search pages/databases
+
+```bash
+curl -s -H "Authorization: Bearer $NOTION_TOKEN" -H "Notion-Version: 2022-06-28" -X POST -H "Content-Type: application/json" -d '{"query":"keyword"}' \
+  "https://api.notion.com/v1/search"
+```
+
+### 2. Get page
+
+```bash
+curl -s -H "Authorization: Bearer $NOTION_TOKEN" -H "Notion-Version: 2022-06-28" \
+  "https://api.notion.com/v1/pages/{page_id}"
+```
+
+### 3. Create page
+
+```bash
+curl -s -H "Authorization: Bearer $NOTION_TOKEN" -H "Notion-Version: 2022-06-28" -X POST -H "Content-Type: application/json" -d '{"parent":{"database_id":"xxx"},"properties":{}}' \
+  "https://api.notion.com/v1/pages"
+```
+
+### 4. Update page
+
+```bash
+curl -s -H "Authorization: Bearer $NOTION_TOKEN" -H "Notion-Version: 2022-06-28" -X PATCH -H "Content-Type: application/json" -d '{"properties":{}}' \
+  "https://api.notion.com/v1/pages/{page_id}"
+```
+
+### 5. Query database
+
+```bash
+curl -s -H "Authorization: Bearer $NOTION_TOKEN" -H "Notion-Version: 2022-06-28" -X POST -H "Content-Type: application/json" -d '{"filter":{}}' \
+  "https://api.notion.com/v1/databases/{database_id}/query"
+```
+
+### 6. Get page content
+
+```bash
+curl -s -H "Authorization: Bearer $NOTION_TOKEN" -H "Notion-Version: 2022-06-28" \
+  "https://api.notion.com/v1/blocks/{block_id}/children"
+```
+
+---
 
 ## Author
 
