@@ -7,6 +7,54 @@ description: Integrate Jira and Confluence for seamless project documentation wo
 
 Bidirectional integration between Jira and Confluence for project documentation, sprint reporting, and cross-referencing.
 
+## Prerequisites
+
+This skill requires the **Atlassian MCP Server** to be configured.
+
+### Step 1: Install Atlassian MCP Server
+
+```bash
+npm install -g @anthropic/mcp-atlassian
+```
+
+### Step 2: Configure MCP Server
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
+
+```json
+{
+  "mcpServers": {
+    "atlassian": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-atlassian"],
+      "env": {
+        "ATLASSIAN_SITE_URL": "https://your-site.atlassian.net",
+        "ATLASSIAN_USER_EMAIL": "your-email@example.com",
+        "ATLASSIAN_API_TOKEN": "your-api-token"
+      }
+    }
+  }
+}
+```
+
+### Step 3: Get Atlassian API Token
+
+1. Go to https://id.atlassian.com/manage-profile/security/api-tokens
+2. Click "Create API token"
+3. Give it a name (e.g., "Claude Code")
+4. Copy the token and add to your config
+
+### Step 4: Verify Configuration
+
+Restart Claude Code and test:
+```
+User: "Search for recent Jira issues"
+```
+
+If configured correctly, Claude will use `mcp__atlassian__search` to query your Atlassian instance.
+
+---
+
 ## Quick Reference
 
 | Task | Primary Tools |

@@ -7,15 +7,45 @@ description: Access Zendesk Support API for ticket management, user lookup, and 
 
 Access Zendesk Support for ticket management, user lookup, and customer support workflows.
 
-## Configuration
+## Prerequisites & Configuration
 
-```
-ZENDESK_SUBDOMAIN=your-subdomain
-ZENDESK_EMAIL=your-email@example.com
-ZENDESK_API_TOKEN=your-api-token
+### Step 1: Get Your Zendesk Credentials
+
+1. **Subdomain**: Your Zendesk URL is `https://{subdomain}.zendesk.com`
+2. **Email**: Your Zendesk account email
+3. **API Token**:
+   - Go to Zendesk Admin Center → Apps and integrations → APIs → Zendesk API
+   - Click "Add API token"
+   - Copy the token (you won't see it again!)
+
+### Step 2: Set Environment Variables
+
+Add to your shell profile (`~/.zshrc` or `~/.bashrc`):
+
+```bash
+export ZENDESK_SUBDOMAIN="your-subdomain"
+export ZENDESK_EMAIL="your-email@example.com"
+export ZENDESK_API_TOKEN="your-api-token"
 ```
 
-**Base URL:** `https://your-subdomain.zendesk.com/api/v2`
+Then reload: `source ~/.zshrc`
+
+### Step 3: Verify Configuration
+
+Test your credentials:
+
+```bash
+curl -s -u "${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}" \
+  "https://${ZENDESK_SUBDOMAIN}.zendesk.com/api/v2/users/me.json" | python3 -m json.tool
+```
+
+If successful, you'll see your user info.
+
+---
+
+## API Reference
+
+**Base URL:** `https://{subdomain}.zendesk.com/api/v2`
 
 **Authentication:** Basic Auth with `{email}/token:{api_token}`
 
