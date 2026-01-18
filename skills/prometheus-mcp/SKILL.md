@@ -7,40 +7,66 @@ description: Prometheus metrics and alerting
 
 Prometheus metrics and alerting
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-prometheus
+```
+
+### Step 2: Get API Credentials
+
+Configure the required credentials below.
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "prometheus-mcp": {
+    "prometheus": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-prometheus"]
+      "args": ["-y", "@anthropic/mcp-prometheus"],
+      "env": {
+            "PROMETHEUS_URL": "http://localhost:9090"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add prometheus-mcp
+Restart Claude Code and test:
+```
+User: "List available prometheus commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the prometheus-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `PROMETHEUS_URL`: http://localhost:9090
 
-- prometheus
-- metrics
-- alerting
+## Available Tools
 
+- `query`
+- `query_range`
+- `list_metrics`
+- `get_alerts`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with prometheus"
+```
+
+## Documentation
+
+See @anthropic/mcp-prometheus documentation for more details.
 
 
 

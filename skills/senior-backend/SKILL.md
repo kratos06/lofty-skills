@@ -9,20 +9,39 @@ Senior backend development with Node.js, Python, Go, and databases
 
 ## Installation
 
-```bash
-claude skill add senior-backend
-```
-
-Or download the .skill file:
+### Step 1: Install MCP Server
 
 ```bash
-curl -LO https://github.com/kratos06/lofty-skills/raw/main/skill-files/senior-backend.skill
-claude skill add senior-backend.skill
+npm install -g @modelcontextprotocol/server-senior-backend
+# or
+npm install -g @anthropic/mcp-senior-backend
 ```
+
+### Step 2: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "senior-backend": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-senior-backend"],
+      "env": {
+        // Add required environment variables
+      }
+    }
+  }
+}
+```
+
+### Step 3: Restart Claude Code
+
+After configuration, restart Claude Code to load the MCP server.
 
 ## Quick Start
 
-After installation, the senior-backend skill will be available in Claude Code.
+After installation, the senior-backend tools will be available in Claude Code.
 
 ## Features
 

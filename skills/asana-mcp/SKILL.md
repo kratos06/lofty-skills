@@ -7,40 +7,66 @@ description: Asana task management with project tracking and team collaboration
 
 Asana task management with project tracking and team collaboration
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-asana
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://app.asana.com/0/developer-console
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "asana-mcp": {
+    "asana": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-asana"]
+      "args": ["-y", "@anthropic/mcp-asana"],
+      "env": {
+            "ASANA_ACCESS_TOKEN": "your-access-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add asana-mcp
+Restart Claude Code and test:
+```
+User: "List available asana commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the asana-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `ASANA_ACCESS_TOKEN`: Required - Your access-token
 
-- asana
-- tasks
-- project-management
+## Available Tools
 
+- `list_workspaces`
+- `list_projects`
+- `create_task`
+- `get_task`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with asana"
+```
+
+## Documentation
+
+See @anthropic/mcp-asana documentation for more details.
 
 ## Source
 

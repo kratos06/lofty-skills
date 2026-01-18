@@ -7,40 +7,70 @@ description: Zoom meetings and webinar management
 
 Zoom meetings and webinar management
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-zoom
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://marketplace.zoom.us/develop/create
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "zoom-mcp": {
+    "zoom": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-zoom"]
+      "args": ["-y", "@anthropic/mcp-zoom"],
+      "env": {
+            "ZOOM_CLIENT_ID": "your-client-id",
+            "ZOOM_CLIENT_SECRET": "your-client-secret",
+            "ZOOM_ACCOUNT_ID": "your-account-id"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add zoom-mcp
+Restart Claude Code and test:
+```
+User: "List available zoom commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the zoom-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `ZOOM_CLIENT_ID`: Required - Your client-id
+- `ZOOM_CLIENT_SECRET`: Required - Your client-secret
+- `ZOOM_ACCOUNT_ID`: Required - Your account-id
 
-- zoom
-- meetings
-- video
+## Available Tools
 
+- `list_meetings`
+- `create_meeting`
+- `get_meeting`
+- `list_recordings`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with zoom"
+```
+
+## Documentation
+
+See @anthropic/mcp-zoom documentation for more details.
 
 
 

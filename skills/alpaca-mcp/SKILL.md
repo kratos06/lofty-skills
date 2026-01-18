@@ -7,40 +7,68 @@ description: Alpaca stock trading API
 
 Alpaca stock trading API
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-alpaca
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://app.alpaca.markets/paper/dashboard/overview
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "alpaca-mcp": {
+    "alpaca": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-alpaca"]
+      "args": ["-y", "@anthropic/mcp-alpaca"],
+      "env": {
+            "ALPACA_API_KEY": "your-api-key",
+            "ALPACA_API_SECRET": "your-api-secret"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add alpaca-mcp
+Restart Claude Code and test:
+```
+User: "List available alpaca commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the alpaca-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `ALPACA_API_KEY`: Required - Your api-key
+- `ALPACA_API_SECRET`: Required - Your api-secret
 
-- alpaca
-- stocks
-- trading
+## Available Tools
 
+- `get_account`
+- `list_positions`
+- `create_order`
+- `get_bars`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with alpaca"
+```
+
+## Documentation
+
+See @anthropic/mcp-alpaca documentation for more details.
 
 
 

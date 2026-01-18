@@ -7,41 +7,66 @@ description: GitHub repository management, PRs, issues, and CI/CD workflows (Off
 
 GitHub repository management, PRs, issues, and CI/CD workflows (Official)
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @modelcontextprotocol/server-github
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://github.com/settings/tokens
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "github-mcp": {
+    "github": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"]
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+            "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add github-mcp
+Restart Claude Code and test:
+```
+User: "List available github commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the github-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `GITHUB_PERSONAL_ACCESS_TOKEN`: Required - ghp_Your token
 
-- github
-- git
-- repository
-- ci-cd
+## Available Tools
 
+- `search_repositories`
+- `get_file_contents`
+- `create_issue`
+- `create_pull_request`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with github"
+```
+
+## Documentation
+
+See @modelcontextprotocol/server-github documentation for more details.
 
 ## Source
 

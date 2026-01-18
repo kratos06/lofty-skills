@@ -7,40 +7,65 @@ description: Firecrawl web scraping and search capabilities (Official)
 
 Firecrawl web scraping and search capabilities (Official)
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-firecrawl
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://firecrawl.dev/app/api-keys
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "firecrawl-mcp": {
+    "firecrawl": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-firecrawl"]
+      "args": ["-y", "@anthropic/mcp-firecrawl"],
+      "env": {
+            "FIRECRAWL_API_KEY": "fc-your-api-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add firecrawl-mcp
+Restart Claude Code and test:
+```
+User: "List available firecrawl commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the firecrawl-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `FIRECRAWL_API_KEY`: Required - fc-Your api-key
 
-- firecrawl
-- scraping
-- web
+## Available Tools
 
+- `scrape`
+- `crawl`
+- `map`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with firecrawl"
+```
+
+## Documentation
+
+See @anthropic/mcp-firecrawl documentation for more details.
 
 ## Source
 

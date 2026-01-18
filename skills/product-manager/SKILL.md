@@ -9,20 +9,39 @@ Product management with RICE, PRDs, and discovery
 
 ## Installation
 
-```bash
-claude skill add product-manager
-```
-
-Or download the .skill file:
+### Step 1: Install MCP Server
 
 ```bash
-curl -LO https://github.com/kratos06/lofty-skills/raw/main/skill-files/product-manager.skill
-claude skill add product-manager.skill
+npm install -g @modelcontextprotocol/server-product-manager
+# or
+npm install -g @anthropic/mcp-product-manager
 ```
+
+### Step 2: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "product-manager": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-product-manager"],
+      "env": {
+        // Add required environment variables
+      }
+    }
+  }
+}
+```
+
+### Step 3: Restart Claude Code
+
+After configuration, restart Claude Code to load the MCP server.
 
 ## Quick Start
 
-After installation, the product-manager skill will be available in Claude Code.
+After installation, the product-manager tools will be available in Claude Code.
 
 ## Features
 

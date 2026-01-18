@@ -7,40 +7,68 @@ description: Bitbucket repositories and pipelines
 
 Bitbucket repositories and pipelines
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-bitbucket
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://bitbucket.org/account/settings/app-passwords/
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "bitbucket-mcp": {
+    "bitbucket": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-bitbucket"]
+      "args": ["-y", "@anthropic/mcp-bitbucket"],
+      "env": {
+            "BITBUCKET_USERNAME": "your-username",
+            "BITBUCKET_APP_PASSWORD": "your-app-password"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add bitbucket-mcp
+Restart Claude Code and test:
+```
+User: "List available bitbucket commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the bitbucket-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `BITBUCKET_USERNAME`: Required - Your username
+- `BITBUCKET_APP_PASSWORD`: Required - Your app-password
 
-- bitbucket
-- git
-- atlassian
+## Available Tools
 
+- `list_repos`
+- `get_file`
+- `create_pr`
+- `list_prs`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with bitbucket"
+```
+
+## Documentation
+
+See @anthropic/mcp-bitbucket documentation for more details.
 
 
 

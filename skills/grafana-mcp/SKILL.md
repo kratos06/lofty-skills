@@ -7,40 +7,67 @@ description: Grafana dashboards and visualization
 
 Grafana dashboards and visualization
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-grafana
+```
+
+### Step 2: Get API Credentials
+
+Configure the required credentials below.
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "grafana-mcp": {
+    "grafana": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-grafana"]
+      "args": ["-y", "@anthropic/mcp-grafana"],
+      "env": {
+            "GRAFANA_URL": "http://localhost:3000",
+            "GRAFANA_API_KEY": "your-api-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add grafana-mcp
+Restart Claude Code and test:
+```
+User: "List available grafana commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the grafana-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `GRAFANA_URL`: http://localhost:3000
+- `GRAFANA_API_KEY`: Required - Your api-key
 
-- grafana
-- dashboards
-- visualization
+## Available Tools
 
+- `list_dashboards`
+- `get_dashboard`
+- `query_datasource`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with grafana"
+```
+
+## Documentation
+
+See @anthropic/mcp-grafana documentation for more details.
 
 
 

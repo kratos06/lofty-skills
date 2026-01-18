@@ -7,41 +7,69 @@ description: Supabase database, auth, and edge functions (Official)
 
 Supabase database, auth, and edge functions (Official)
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-supabase
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://app.supabase.com/project/_/settings/api
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "supabase-mcp": {
+    "supabase": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-supabase"]
+      "args": ["-y", "@anthropic/mcp-supabase"],
+      "env": {
+            "SUPABASE_URL": "https://your-project.supabase.co",
+            "SUPABASE_KEY": "your-anon-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add supabase-mcp
+Restart Claude Code and test:
+```
+User: "List available supabase commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the supabase-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `SUPABASE_URL`: Required - https://Your project.supabase.co
+- `SUPABASE_KEY`: Required - Your anon-key
 
-- supabase
-- database
-- auth
-- serverless
+## Available Tools
 
+- `query`
+- `insert`
+- `update`
+- `delete`
+- `rpc`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with supabase"
+```
+
+## Documentation
+
+See @anthropic/mcp-supabase documentation for more details.
 
 ## Source
 

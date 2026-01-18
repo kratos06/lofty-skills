@@ -9,20 +9,39 @@ Create, edit, and analyze PowerPoint presentations with support for layouts, tem
 
 ## Installation
 
-```bash
-claude skill add pptx
-```
-
-Or download the .skill file:
+### Step 1: Install MCP Server
 
 ```bash
-curl -LO https://github.com/kratos06/lofty-skills/raw/main/skill-files/pptx.skill
-claude skill add pptx.skill
+npm install -g @modelcontextprotocol/server-pptx
+# or
+npm install -g @anthropic/mcp-pptx
 ```
+
+### Step 2: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "pptx": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-pptx"],
+      "env": {
+        // Add required environment variables
+      }
+    }
+  }
+}
+```
+
+### Step 3: Restart Claude Code
+
+After configuration, restart Claude Code to load the MCP server.
 
 ## Quick Start
 
-After installation, the pptx skill will be available in Claude Code.
+After installation, the pptx tools will be available in Claude Code.
 
 ## Features
 

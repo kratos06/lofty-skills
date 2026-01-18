@@ -7,40 +7,65 @@ description: Replicate AI model hosting
 
 Replicate AI model hosting
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-replicate
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://replicate.com/account/api-tokens
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "replicate-mcp": {
+    "replicate": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-replicate"]
+      "args": ["-y", "@anthropic/mcp-replicate"],
+      "env": {
+            "REPLICATE_API_TOKEN": "r8_your-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add replicate-mcp
+Restart Claude Code and test:
+```
+User: "List available replicate commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the replicate-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `REPLICATE_API_TOKEN`: Required - r8_Your token
 
-- replicate
-- models
-- ai
+## Available Tools
 
+- `run`
+- `list_models`
+- `get_prediction`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with replicate"
+```
+
+## Documentation
+
+See @anthropic/mcp-replicate documentation for more details.
 
 
 

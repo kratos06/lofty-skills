@@ -7,40 +7,70 @@ description: Firebase platform integration
 
 Firebase platform integration
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-firebase
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://console.firebase.google.com/project/_/settings/serviceaccounts/adminsdk
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "firebase-mcp": {
+    "firebase": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-firebase"]
+      "args": ["-y", "@anthropic/mcp-firebase"],
+      "env": {
+            "FIREBASE_PROJECT_ID": "your-project-id",
+            "FIREBASE_PRIVATE_KEY": "your-private-key",
+            "FIREBASE_CLIENT_EMAIL": "your-client-email"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add firebase-mcp
+Restart Claude Code and test:
+```
+User: "List available firebase commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the firebase-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `FIREBASE_PROJECT_ID`: Required - Your project-id
+- `FIREBASE_PRIVATE_KEY`: Required - Your private-key
+- `FIREBASE_CLIENT_EMAIL`: Required - Your client-email
 
-- firebase
-- google
-- backend
+## Available Tools
 
+- `get_document`
+- `set_document`
+- `query_collection`
+- `delete_document`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with firebase"
+```
+
+## Documentation
+
+See @anthropic/mcp-firebase documentation for more details.
 
 
 

@@ -7,40 +7,66 @@ description: Vercel deployment and project management
 
 Vercel deployment and project management
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-vercel
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://vercel.com/account/tokens
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "vercel-mcp": {
+    "vercel": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-vercel"]
+      "args": ["-y", "@anthropic/mcp-vercel"],
+      "env": {
+            "VERCEL_TOKEN": "your-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add vercel-mcp
+Restart Claude Code and test:
+```
+User: "List available vercel commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the vercel-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `VERCEL_TOKEN`: Required - Your token
 
-- vercel
-- deployment
-- hosting
+## Available Tools
 
+- `list_projects`
+- `list_deployments`
+- `create_deployment`
+- `get_logs`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with vercel"
+```
+
+## Documentation
+
+See @anthropic/mcp-vercel documentation for more details.
 
 ## Source
 

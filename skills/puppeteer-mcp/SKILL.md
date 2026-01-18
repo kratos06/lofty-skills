@@ -7,40 +7,65 @@ description: Puppeteer headless browser control
 
 Puppeteer headless browser control
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-puppeteer
+```
+
+### Step 2: Get API Credentials
+
+Configure the required credentials below.
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "puppeteer-mcp": {
+    "puppeteer": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+      "args": ["-y", "@anthropic/mcp-puppeteer"],
+      "env": {}
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add puppeteer-mcp
+Restart Claude Code and test:
+```
+User: "List available puppeteer commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the puppeteer-mcp tools will be available in Claude Code.
-
-## Features
-
-- puppeteer
-- browser
-- scraping
+## Environment Variables
 
 
+
+## Available Tools
+
+- `navigate`
+- `click`
+- `type`
+- `screenshot`
+- `evaluate`
+
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with puppeteer"
+```
+
+## Documentation
+
+See @anthropic/mcp-puppeteer documentation for more details.
 
 ## Source
 

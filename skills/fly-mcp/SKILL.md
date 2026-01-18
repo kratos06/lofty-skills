@@ -7,40 +7,66 @@ description: Fly.io edge deployment platform
 
 Fly.io edge deployment platform
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-fly
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://fly.io/user/personal_access_tokens
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "fly-mcp": {
+    "fly": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-fly"]
+      "args": ["-y", "@anthropic/mcp-fly"],
+      "env": {
+            "FLY_API_TOKEN": "your-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add fly-mcp
+Restart Claude Code and test:
+```
+User: "List available fly commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the fly-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `FLY_API_TOKEN`: Required - Your token
 
-- fly
-- edge
-- deployment
+## Available Tools
 
+- `list_apps`
+- `get_app`
+- `deploy`
+- `scale`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with fly"
+```
+
+## Documentation
+
+See @anthropic/mcp-fly documentation for more details.
 
 
 

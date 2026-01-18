@@ -7,40 +7,68 @@ description: GitLab projects, merge requests, and CI/CD
 
 GitLab projects, merge requests, and CI/CD
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @modelcontextprotocol/server-gitlab
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://gitlab.com/-/profile/personal_access_tokens
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "gitlab-mcp": {
+    "gitlab": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-gitlab"]
+      "args": ["-y", "@modelcontextprotocol/server-gitlab"],
+      "env": {
+            "GITLAB_PERSONAL_ACCESS_TOKEN": "glpat-your-token",
+            "GITLAB_API_URL": "https://gitlab.com/api/v4"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add gitlab-mcp
+Restart Claude Code and test:
+```
+User: "List available gitlab commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the gitlab-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `GITLAB_PERSONAL_ACCESS_TOKEN`: Required - glpat-Your token
+- `GITLAB_API_URL`: https://gitlab.com/api/v4
 
-- gitlab
-- git
-- devops
+## Available Tools
 
+- `list_projects`
+- `get_file`
+- `create_issue`
+- `create_merge_request`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with gitlab"
+```
+
+## Documentation
+
+See @modelcontextprotocol/server-gitlab documentation for more details.
 
 
 

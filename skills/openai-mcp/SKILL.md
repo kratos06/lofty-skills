@@ -7,41 +7,66 @@ description: OpenAI API integration for GPT models and embeddings
 
 OpenAI API integration for GPT models and embeddings
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-openai
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://platform.openai.com/api-keys
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "openai-mcp": {
+    "openai": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-openai"]
+      "args": ["-y", "@anthropic/mcp-openai"],
+      "env": {
+            "OPENAI_API_KEY": "sk-your-api-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add openai-mcp
+Restart Claude Code and test:
+```
+User: "List available openai commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the openai-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `OPENAI_API_KEY`: Required - sk-Your api-key
 
-- openai
-- gpt
-- ai
-- llm
+## Available Tools
 
+- `chat`
+- `complete`
+- `embed`
+- `create_image`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with openai"
+```
+
+## Documentation
+
+See @anthropic/mcp-openai documentation for more details.
 
 ## Source
 

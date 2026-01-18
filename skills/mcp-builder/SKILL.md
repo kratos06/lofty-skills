@@ -9,30 +9,39 @@ Guide for creating high-quality MCP servers to integrate external APIs and servi
 
 ## Installation
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @modelcontextprotocol/server-mcp-builder
+# or
+npm install -g @anthropic/mcp-mcp-builder
+```
+
+### Step 2: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json`):
 
 ```json
 {
   "mcpServers": {
     "mcp-builder": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-mcp-builder"]
+      "args": ["-y", "@modelcontextprotocol/server-mcp-builder"],
+      "env": {
+        // Add required environment variables
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 3: Restart Claude Code
 
-```bash
-claude skill add mcp-builder
-```
+After configuration, restart Claude Code to load the MCP server.
 
 ## Quick Start
 
-After configuration, the mcp-builder tools will be available in Claude Code.
+After installation, the mcp-builder tools will be available in Claude Code.
 
 ## Features
 

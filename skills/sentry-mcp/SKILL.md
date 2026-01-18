@@ -7,40 +7,68 @@ description: Sentry error tracking and performance monitoring
 
 Sentry error tracking and performance monitoring
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-sentry
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://sentry.io/settings/account/api/auth-tokens/
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "sentry-mcp": {
+    "sentry": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sentry"]
+      "args": ["-y", "@anthropic/mcp-sentry"],
+      "env": {
+            "SENTRY_AUTH_TOKEN": "your-token",
+            "SENTRY_ORG": "your-org"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add sentry-mcp
+Restart Claude Code and test:
+```
+User: "List available sentry commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the sentry-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `SENTRY_AUTH_TOKEN`: Required - Your token
+- `SENTRY_ORG`: Required - Your org
 
-- sentry
-- errors
-- debugging
+## Available Tools
 
+- `list_issues`
+- `get_issue`
+- `resolve_issue`
+- `list_events`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with sentry"
+```
+
+## Documentation
+
+See @anthropic/mcp-sentry documentation for more details.
 
 ## Source
 

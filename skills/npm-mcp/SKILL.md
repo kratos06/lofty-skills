@@ -7,40 +7,66 @@ description: NPM package management and registry
 
 NPM package management and registry
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-npm
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://www.npmjs.com/settings/~/tokens
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "npm-mcp": {
+    "npm": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-npm"]
+      "args": ["-y", "@anthropic/mcp-npm"],
+      "env": {
+            "NPM_TOKEN": "your-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add npm-mcp
+Restart Claude Code and test:
+```
+User: "List available npm commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the npm-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `NPM_TOKEN`: Required - Your token
 
-- npm
-- packages
-- nodejs
+## Available Tools
 
+- `search`
+- `get_package`
+- `list_versions`
+- `publish`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with npm"
+```
+
+## Documentation
+
+See @anthropic/mcp-npm documentation for more details.
 
 
 

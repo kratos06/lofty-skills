@@ -9,20 +9,39 @@ Verification before claiming completion
 
 ## Installation
 
-```bash
-claude skill add verification
-```
-
-Or download the .skill file:
+### Step 1: Install MCP Server
 
 ```bash
-curl -LO https://github.com/kratos06/lofty-skills/raw/main/skill-files/verification.skill
-claude skill add verification.skill
+npm install -g @modelcontextprotocol/server-verification
+# or
+npm install -g @anthropic/mcp-verification
 ```
+
+### Step 2: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "verification": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-verification"],
+      "env": {
+        // Add required environment variables
+      }
+    }
+  }
+}
+```
+
+### Step 3: Restart Claude Code
+
+After configuration, restart Claude Code to load the MCP server.
 
 ## Quick Start
 
-After installation, the verification skill will be available in Claude Code.
+After installation, the verification tools will be available in Claude Code.
 
 ## Features
 

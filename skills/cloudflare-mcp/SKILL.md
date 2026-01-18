@@ -7,40 +7,69 @@ description: Cloudflare Workers, KV, R2, and D1 management
 
 Cloudflare Workers, KV, R2, and D1 management
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-cloudflare
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://dash.cloudflare.com/profile/api-tokens
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "cloudflare-mcp": {
+    "cloudflare": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-cloudflare"]
+      "args": ["-y", "@anthropic/mcp-cloudflare"],
+      "env": {
+            "CLOUDFLARE_API_TOKEN": "your-api-token",
+            "CLOUDFLARE_ACCOUNT_ID": "your-account-id"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add cloudflare-mcp
+Restart Claude Code and test:
+```
+User: "List available cloudflare commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the cloudflare-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `CLOUDFLARE_API_TOKEN`: Required - Your api-token
+- `CLOUDFLARE_ACCOUNT_ID`: Required - Your account-id
 
-- cloudflare
-- workers
-- edge
+## Available Tools
 
+- `list_zones`
+- `list_workers`
+- `deploy_worker`
+- `kv_get`
+- `kv_put`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with cloudflare"
+```
+
+## Documentation
+
+See @anthropic/mcp-cloudflare documentation for more details.
 
 ## Source
 

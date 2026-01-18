@@ -7,40 +7,65 @@ description: OpenAPI/Swagger documentation generation
 
 OpenAPI/Swagger documentation generation
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-swagger
+```
+
+### Step 2: Get API Credentials
+
+Configure the required credentials below.
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "swagger-mcp": {
+    "swagger": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-swagger"]
+      "args": ["-y", "@anthropic/mcp-swagger"],
+      "env": {
+            "SWAGGER_URL": "https://api.example.com/swagger.json"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add swagger-mcp
+Restart Claude Code and test:
+```
+User: "List available swagger commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the swagger-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `SWAGGER_URL`: https://api.example.com/swagger.json
 
-- swagger
-- openapi
-- documentation
+## Available Tools
 
+- `get_spec`
+- `list_endpoints`
+- `try_endpoint`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with swagger"
+```
+
+## Documentation
+
+See @anthropic/mcp-swagger documentation for more details.
 
 
 

@@ -7,40 +7,71 @@ description: AWS comprehensive integration with documentation and best practices
 
 AWS comprehensive integration with documentation and best practices (Official)
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-aws
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://console.aws.amazon.com/iam/home#/security_credentials
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "aws-mcp": {
+    "aws": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-aws"]
+      "args": ["-y", "@anthropic/mcp-aws"],
+      "env": {
+            "AWS_ACCESS_KEY_ID": "your-access-key",
+            "AWS_SECRET_ACCESS_KEY": "your-secret-key",
+            "AWS_REGION": "us-east-1"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add aws-mcp
+Restart Claude Code and test:
+```
+User: "List available aws commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the aws-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `AWS_ACCESS_KEY_ID`: Required - Your access-key
+- `AWS_SECRET_ACCESS_KEY`: Required - Your secret-key
+- `AWS_REGION`: us-east-1
 
-- aws
-- cloud
-- infrastructure
+## Available Tools
 
+- `s3_list`
+- `s3_get`
+- `s3_put`
+- `lambda_invoke`
+- `ec2_describe`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with aws"
+```
+
+## Documentation
+
+See @anthropic/mcp-aws documentation for more details.
 
 ## Source
 

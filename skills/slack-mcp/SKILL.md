@@ -7,40 +7,68 @@ description: Slack messaging with channel management and bot capabilities
 
 Slack messaging with channel management and bot capabilities
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @modelcontextprotocol/server-slack
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://api.slack.com/apps
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "slack-mcp": {
+    "slack": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-slack"]
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+            "SLACK_BOT_TOKEN": "xoxb-your-bot-token",
+            "SLACK_TEAM_ID": "T0123456789"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add slack-mcp
+Restart Claude Code and test:
+```
+User: "List available slack commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the slack-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `SLACK_BOT_TOKEN`: Required - xoxb-Your bot-token
+- `SLACK_TEAM_ID`: T0123456789
 
-- slack
-- messaging
-- chat
+## Available Tools
 
+- `list_channels`
+- `post_message`
+- `get_channel_history`
+- `search_messages`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with slack"
+```
+
+## Documentation
+
+See @modelcontextprotocol/server-slack documentation for more details.
 
 ## Source
 

@@ -7,41 +7,65 @@ description: Microsoft Playwright browser automation for testing and scraping (O
 
 Microsoft Playwright browser automation for testing and scraping (Official)
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-playwright
+```
+
+### Step 2: Get API Credentials
+
+Configure the required credentials below.
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "playwright-mcp": {
+    "playwright": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-playwright"]
+      "args": ["-y", "@anthropic/mcp-playwright"],
+      "env": {}
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add playwright-mcp
+Restart Claude Code and test:
+```
+User: "List available playwright commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the playwright-mcp tools will be available in Claude Code.
-
-## Features
-
-- playwright
-- browser
-- testing
-- automation
+## Environment Variables
 
 
+
+## Available Tools
+
+- `navigate`
+- `click`
+- `fill`
+- `screenshot`
+- `evaluate`
+
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with playwright"
+```
+
+## Documentation
+
+See @anthropic/mcp-playwright documentation for more details.
 
 ## Source
 

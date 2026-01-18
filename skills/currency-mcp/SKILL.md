@@ -7,40 +7,65 @@ description: Currency exchange rates
 
 Currency exchange rates
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-currency
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://www.exchangerate-api.com/
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "currency-mcp": {
+    "currency": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-currency"]
+      "args": ["-y", "@anthropic/mcp-currency"],
+      "env": {
+            "EXCHANGE_RATE_API_KEY": "your-api-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add currency-mcp
+Restart Claude Code and test:
+```
+User: "List available currency commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the currency-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `EXCHANGE_RATE_API_KEY`: Required - Your api-key
 
-- currency
-- exchange
-- forex
+## Available Tools
 
+- `convert`
+- `get_rates`
+- `list_currencies`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with currency"
+```
+
+## Documentation
+
+See @anthropic/mcp-currency documentation for more details.
 
 
 

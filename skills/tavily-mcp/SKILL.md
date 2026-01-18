@@ -7,40 +7,64 @@ description: Tavily AI search for LLMs
 
 Tavily AI search for LLMs
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-tavily
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://tavily.com/#api
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "tavily-mcp": {
+    "tavily": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-tavily"]
+      "args": ["-y", "@anthropic/mcp-tavily"],
+      "env": {
+            "TAVILY_API_KEY": "tvly-your-api-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add tavily-mcp
+Restart Claude Code and test:
+```
+User: "List available tavily commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the tavily-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `TAVILY_API_KEY`: Required - tvly-Your api-key
 
-- tavily
-- search
-- ai
+## Available Tools
 
+- `search`
+- `extract`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with tavily"
+```
+
+## Documentation
+
+See @anthropic/mcp-tavily documentation for more details.
 
 
 

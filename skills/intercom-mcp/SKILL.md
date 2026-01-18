@@ -7,40 +7,66 @@ description: Intercom customer conversations and messaging platform
 
 Intercom customer conversations and messaging platform
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-intercom
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://app.intercom.com/a/apps/_/developer-hub
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "intercom-mcp": {
+    "intercom": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-intercom"]
+      "args": ["-y", "@anthropic/mcp-intercom"],
+      "env": {
+            "INTERCOM_ACCESS_TOKEN": "your-access-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add intercom-mcp
+Restart Claude Code and test:
+```
+User: "List available intercom commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the intercom-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `INTERCOM_ACCESS_TOKEN`: Required - Your access-token
 
-- intercom
-- messaging
-- customer-support
+## Available Tools
 
+- `list_conversations`
+- `get_conversation`
+- `reply_to_conversation`
+- `search_contacts`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with intercom"
+```
+
+## Documentation
+
+See @anthropic/mcp-intercom documentation for more details.
 
 ## Source
 

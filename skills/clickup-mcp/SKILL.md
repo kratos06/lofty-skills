@@ -7,40 +7,66 @@ description: ClickUp project and task management
 
 ClickUp project and task management
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-clickup
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://app.clickup.com/settings/apps
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "clickup-mcp": {
+    "clickup": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-clickup"]
+      "args": ["-y", "@anthropic/mcp-clickup"],
+      "env": {
+            "CLICKUP_API_TOKEN": "pk_your-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add clickup-mcp
+Restart Claude Code and test:
+```
+User: "List available clickup commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the clickup-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `CLICKUP_API_TOKEN`: Required - pk_Your token
 
-- clickup
-- productivity
-- tasks
+## Available Tools
 
+- `list_spaces`
+- `list_tasks`
+- `create_task`
+- `update_task`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with clickup"
+```
+
+## Documentation
+
+See @anthropic/mcp-clickup documentation for more details.
 
 
 

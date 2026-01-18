@@ -7,40 +7,66 @@ description: Terraform IaC with provider registry and best practices (Official H
 
 Terraform IaC with provider registry and best practices (Official HashiCorp)
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-terraform
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://app.terraform.io/app/settings/tokens
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "terraform-mcp": {
+    "terraform": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-terraform"]
+      "args": ["-y", "@anthropic/mcp-terraform"],
+      "env": {
+            "TF_CLOUD_TOKEN": "your-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add terraform-mcp
+Restart Claude Code and test:
+```
+User: "List available terraform commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the terraform-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `TF_CLOUD_TOKEN`: Required - Your token
 
-- terraform
-- iac
-- infrastructure
+## Available Tools
 
+- `plan`
+- `apply`
+- `show_state`
+- `list_workspaces`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with terraform"
+```
+
+## Documentation
+
+See @anthropic/mcp-terraform documentation for more details.
 
 ## Source
 

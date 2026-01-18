@@ -7,40 +7,73 @@ description: Snowflake data cloud warehouse
 
 Snowflake data cloud warehouse
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-snowflake
+```
+
+### Step 2: Get API Credentials
+
+Configure the required credentials below.
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "snowflake-mcp": {
+    "snowflake": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-snowflake"]
+      "args": ["-y", "@anthropic/mcp-snowflake"],
+      "env": {
+            "SNOWFLAKE_ACCOUNT": "your-account",
+            "SNOWFLAKE_USER": "your-user",
+            "SNOWFLAKE_PASSWORD": "your-password",
+            "SNOWFLAKE_WAREHOUSE": "your-warehouse",
+            "SNOWFLAKE_DATABASE": "your-database"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add snowflake-mcp
+Restart Claude Code and test:
+```
+User: "List available snowflake commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the snowflake-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `SNOWFLAKE_ACCOUNT`: Required - Your account
+- `SNOWFLAKE_USER`: Required - Your user
+- `SNOWFLAKE_PASSWORD`: Required - Your password
+- `SNOWFLAKE_WAREHOUSE`: Required - Your warehouse
+- `SNOWFLAKE_DATABASE`: Required - Your database
 
-- snowflake
-- warehouse
-- analytics
+## Available Tools
 
+- `query`
+- `list_tables`
+- `describe_table`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with snowflake"
+```
+
+## Documentation
+
+See @anthropic/mcp-snowflake documentation for more details.
 
 
 

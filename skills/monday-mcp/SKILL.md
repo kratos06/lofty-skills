@@ -7,40 +7,66 @@ description: Monday.com board management with items and team planning
 
 Monday.com board management with items and team planning
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-monday
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://monday.com/developers/apps
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "monday-mcp": {
+    "monday": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-monday"]
+      "args": ["-y", "@anthropic/mcp-monday"],
+      "env": {
+            "MONDAY_API_TOKEN": "your-api-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add monday-mcp
+Restart Claude Code and test:
+```
+User: "List available monday commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the monday-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `MONDAY_API_TOKEN`: Required - Your api-token
 
-- monday
-- boards
-- planning
+## Available Tools
 
+- `list_boards`
+- `list_items`
+- `create_item`
+- `update_item`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with monday"
+```
+
+## Documentation
+
+See @anthropic/mcp-monday documentation for more details.
 
 ## Source
 

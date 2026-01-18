@@ -7,40 +7,66 @@ description: PostgreSQL database with schema inspection and read-only queries (O
 
 PostgreSQL database with schema inspection and read-only queries (Official Anthropic)
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @modelcontextprotocol/server-postgres
+```
+
+### Step 2: Get API Credentials
+
+Configure the required credentials below.
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "postgres-mcp": {
+    "postgres": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-postgres"]
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+            "POSTGRES_CONNECTION_STRING": "postgresql://user:password@localhost:5432/database"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add postgres-mcp
+Restart Claude Code and test:
+```
+User: "List available postgres commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the postgres-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `POSTGRES_CONNECTION_STRING`: postgresql://user:password@localhost:5432/database
 
-- postgresql
-- database
-- sql
+## Available Tools
 
+- `query`
+- `list_tables`
+- `describe_table`
+- `execute`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with postgres"
+```
+
+## Documentation
+
+See @modelcontextprotocol/server-postgres documentation for more details.
 
 ## Source
 

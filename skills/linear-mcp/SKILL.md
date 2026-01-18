@@ -7,40 +7,66 @@ description: Linear issue tracking with cycles, projects, and high-velocity work
 
 Linear issue tracking with cycles, projects, and high-velocity workflows
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @modelcontextprotocol/server-linear
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://linear.app/settings/api
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "linear-mcp": {
+    "linear": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-linear"]
+      "args": ["-y", "@modelcontextprotocol/server-linear"],
+      "env": {
+            "LINEAR_API_KEY": "lin_api_your-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add linear-mcp
+Restart Claude Code and test:
+```
+User: "List available linear commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the linear-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `LINEAR_API_KEY`: Required - lin_api_Your key
 
-- linear
-- issues
-- agile
+## Available Tools
 
+- `search_issues`
+- `create_issue`
+- `update_issue`
+- `list_projects`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with linear"
+```
+
+## Documentation
+
+See @modelcontextprotocol/server-linear documentation for more details.
 
 ## Source
 

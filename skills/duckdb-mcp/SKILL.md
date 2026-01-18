@@ -7,40 +7,65 @@ description: DuckDB analytical database
 
 DuckDB analytical database
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-duckdb
+```
+
+### Step 2: Get API Credentials
+
+Configure the required credentials below.
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "duckdb-mcp": {
+    "duckdb": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-duckdb"]
+      "args": ["-y", "@anthropic/mcp-duckdb"],
+      "env": {
+            "DUCKDB_PATH": "/path/to/database.duckdb"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add duckdb-mcp
+Restart Claude Code and test:
+```
+User: "List available duckdb commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the duckdb-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `DUCKDB_PATH`: /path/to/database.duckdb
 
-- duckdb
-- analytics
-- olap
+## Available Tools
 
+- `query`
+- `list_tables`
+- `describe_table`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with duckdb"
+```
+
+## Documentation
+
+See @anthropic/mcp-duckdb documentation for more details.
 
 
 

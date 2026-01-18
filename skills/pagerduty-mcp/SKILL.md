@@ -7,40 +7,66 @@ description: PagerDuty incident management
 
 PagerDuty incident management
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-pagerduty
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://support.pagerduty.com/docs/api-access-keys
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "pagerduty-mcp": {
+    "pagerduty": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-pagerduty"]
+      "args": ["-y", "@anthropic/mcp-pagerduty"],
+      "env": {
+            "PAGERDUTY_API_KEY": "your-api-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add pagerduty-mcp
+Restart Claude Code and test:
+```
+User: "List available pagerduty commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the pagerduty-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `PAGERDUTY_API_KEY`: Required - Your api-key
 
-- pagerduty
-- incidents
-- alerts
+## Available Tools
 
+- `list_incidents`
+- `create_incident`
+- `resolve_incident`
+- `list_services`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with pagerduty"
+```
+
+## Documentation
+
+See @anthropic/mcp-pagerduty documentation for more details.
 
 
 

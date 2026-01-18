@@ -7,40 +7,68 @@ description: Basecamp project collaboration with to-dos and message boards
 
 Basecamp project collaboration with to-dos and message boards
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-basecamp
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://launchpad.37signals.com/integrations
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "basecamp-mcp": {
+    "basecamp": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-basecamp"]
+      "args": ["-y", "@anthropic/mcp-basecamp"],
+      "env": {
+            "BASECAMP_ACCESS_TOKEN": "your-access-token",
+            "BASECAMP_ACCOUNT_ID": "your-account-id"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add basecamp-mcp
+Restart Claude Code and test:
+```
+User: "List available basecamp commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the basecamp-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `BASECAMP_ACCESS_TOKEN`: Required - Your access-token
+- `BASECAMP_ACCOUNT_ID`: Required - Your account-id
 
-- basecamp
-- collaboration
-- todos
+## Available Tools
 
+- `list_projects`
+- `list_todos`
+- `create_todo`
+- `list_messages`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with basecamp"
+```
+
+## Documentation
+
+See @anthropic/mcp-basecamp documentation for more details.
 
 ## Source
 

@@ -7,40 +7,66 @@ description: Pipedrive sales pipeline management and deal tracking
 
 Pipedrive sales pipeline management and deal tracking
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-pipedrive
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://app.pipedrive.com/settings/api
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "pipedrive-mcp": {
+    "pipedrive": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-pipedrive"]
+      "args": ["-y", "@anthropic/mcp-pipedrive"],
+      "env": {
+            "PIPEDRIVE_API_TOKEN": "your-api-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add pipedrive-mcp
+Restart Claude Code and test:
+```
+User: "List available pipedrive commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the pipedrive-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `PIPEDRIVE_API_TOKEN`: Required - Your api-token
 
-- pipedrive
-- sales
-- deals
+## Available Tools
 
+- `list_deals`
+- `create_deal`
+- `list_persons`
+- `create_person`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with pipedrive"
+```
+
+## Documentation
+
+See @anthropic/mcp-pipedrive documentation for more details.
 
 ## Source
 

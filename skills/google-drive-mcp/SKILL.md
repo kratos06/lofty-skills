@@ -7,40 +7,70 @@ description: Google Drive file storage and management
 
 Google Drive file storage and management
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-google-drive
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://console.cloud.google.com/apis/credentials
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "google-drive-mcp": {
+    "google-drive": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-google-drive"]
+      "args": ["-y", "@anthropic/mcp-google-drive"],
+      "env": {
+            "GOOGLE_CLIENT_ID": "your-client-id",
+            "GOOGLE_CLIENT_SECRET": "your-client-secret",
+            "GOOGLE_REFRESH_TOKEN": "your-refresh-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add google-drive-mcp
+Restart Claude Code and test:
+```
+User: "List available google-drive commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the google-drive-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `GOOGLE_CLIENT_ID`: Required - Your client-id
+- `GOOGLE_CLIENT_SECRET`: Required - Your client-secret
+- `GOOGLE_REFRESH_TOKEN`: Required - Your refresh-token
 
-- google
-- drive
-- storage
+## Available Tools
 
+- `list_files`
+- `get_file`
+- `upload_file`
+- `search`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with google-drive"
+```
+
+## Documentation
+
+See @anthropic/mcp-google-drive documentation for more details.
 
 ## Source
 

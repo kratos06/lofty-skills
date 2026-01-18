@@ -7,40 +7,72 @@ description: MySQL database operations
 
 MySQL database operations
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-mysql
+```
+
+### Step 2: Get API Credentials
+
+Configure the required credentials below.
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "mysql-mcp": {
+    "mysql": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-mysql"]
+      "args": ["-y", "@anthropic/mcp-mysql"],
+      "env": {
+            "MYSQL_HOST": "localhost",
+            "MYSQL_USER": "root",
+            "MYSQL_PASSWORD": "password",
+            "MYSQL_DATABASE": "database"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add mysql-mcp
+Restart Claude Code and test:
+```
+User: "List available mysql commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the mysql-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `MYSQL_HOST`: localhost
+- `MYSQL_USER`: root
+- `MYSQL_PASSWORD`: password
+- `MYSQL_DATABASE`: database
 
-- mysql
-- sql
-- database
+## Available Tools
 
+- `query`
+- `list_tables`
+- `describe_table`
+- `execute`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with mysql"
+```
+
+## Documentation
+
+See @anthropic/mcp-mysql documentation for more details.
 
 
 

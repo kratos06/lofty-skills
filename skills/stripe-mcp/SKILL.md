@@ -7,40 +7,66 @@ description: Stripe payment processing, subscriptions, and invoicing
 
 Stripe payment processing, subscriptions, and invoicing
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-stripe
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://dashboard.stripe.com/apikeys
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "stripe-mcp": {
+    "stripe": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-stripe"]
+      "args": ["-y", "@anthropic/mcp-stripe"],
+      "env": {
+            "STRIPE_SECRET_KEY": "sk_your-secret-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add stripe-mcp
+Restart Claude Code and test:
+```
+User: "List available stripe commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the stripe-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `STRIPE_SECRET_KEY`: Required - sk_Your secret-key
 
-- stripe
-- payments
-- billing
+## Available Tools
 
+- `list_customers`
+- `create_customer`
+- `list_payments`
+- `create_payment`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with stripe"
+```
+
+## Documentation
+
+See @anthropic/mcp-stripe documentation for more details.
 
 ## Source
 

@@ -7,40 +7,67 @@ description: Docker container management, builds, and deployment
 
 Docker container management, builds, and deployment
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-docker
+```
+
+### Step 2: Get API Credentials
+
+Configure the required credentials below.
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "docker-mcp": {
+    "docker": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-docker"]
+      "args": ["-y", "@anthropic/mcp-docker"],
+      "env": {
+            "DOCKER_HOST": "unix:///var/run/docker.sock"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add docker-mcp
+Restart Claude Code and test:
+```
+User: "List available docker commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the docker-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `DOCKER_HOST`: unix:///var/run/docker.sock
 
-- docker
-- containers
-- devops
+## Available Tools
 
+- `list_containers`
+- `run_container`
+- `stop_container`
+- `list_images`
+- `build_image`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with docker"
+```
+
+## Documentation
+
+See @anthropic/mcp-docker documentation for more details.
 
 ## Source
 

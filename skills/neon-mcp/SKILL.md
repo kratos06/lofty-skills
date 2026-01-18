@@ -7,40 +7,65 @@ description: Neon serverless PostgreSQL
 
 Neon serverless PostgreSQL
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-neon
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://console.neon.tech/
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "neon-mcp": {
+    "neon": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-neon"]
+      "args": ["-y", "@anthropic/mcp-neon"],
+      "env": {
+            "NEON_CONNECTION_STRING": "postgresql://user:password@ep-xxx.region.aws.neon.tech/database"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add neon-mcp
+Restart Claude Code and test:
+```
+User: "List available neon commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the neon-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `NEON_CONNECTION_STRING`: postgresql://user:password@ep-xxx.region.aws.neon.tech/database
 
-- neon
-- postgres
-- serverless
+## Available Tools
 
+- `query`
+- `list_tables`
+- `describe_table`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with neon"
+```
+
+## Documentation
+
+See @anthropic/mcp-neon documentation for more details.
 
 
 

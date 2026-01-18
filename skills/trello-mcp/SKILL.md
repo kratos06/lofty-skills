@@ -7,40 +7,68 @@ description: Trello boards, lists, and cards management
 
 Trello boards, lists, and cards management
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-trello
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://trello.com/app-key
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "trello-mcp": {
+    "trello": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-trello"]
+      "args": ["-y", "@anthropic/mcp-trello"],
+      "env": {
+            "TRELLO_API_KEY": "your-api-key",
+            "TRELLO_TOKEN": "your-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add trello-mcp
+Restart Claude Code and test:
+```
+User: "List available trello commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the trello-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `TRELLO_API_KEY`: Required - Your api-key
+- `TRELLO_TOKEN`: Required - Your token
 
-- trello
-- kanban
-- boards
+## Available Tools
 
+- `list_boards`
+- `list_cards`
+- `create_card`
+- `move_card`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with trello"
+```
+
+## Documentation
+
+See @anthropic/mcp-trello documentation for more details.
 
 
 

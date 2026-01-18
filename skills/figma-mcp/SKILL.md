@@ -7,40 +7,66 @@ description: Figma Dev Mode integration for design-to-code workflows
 
 Figma Dev Mode integration for design-to-code workflows
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-figma
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://www.figma.com/developers/api#access-tokens
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "figma-mcp": {
+    "figma": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-figma"]
+      "args": ["-y", "@anthropic/mcp-figma"],
+      "env": {
+            "FIGMA_ACCESS_TOKEN": "your-access-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add figma-mcp
+Restart Claude Code and test:
+```
+User: "List available figma commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the figma-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `FIGMA_ACCESS_TOKEN`: Required - Your access-token
 
-- figma
-- design
-- ui
+## Available Tools
 
+- `get_file`
+- `get_comments`
+- `post_comment`
+- `get_images`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with figma"
+```
+
+## Documentation
+
+See @anthropic/mcp-figma documentation for more details.
 
 ## Source
 

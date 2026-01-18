@@ -7,40 +7,68 @@ description: Weaviate vector search engine
 
 Weaviate vector search engine
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-weaviate
+```
+
+### Step 2: Get API Credentials
+
+Configure the required credentials below.
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "weaviate-mcp": {
+    "weaviate": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-weaviate"]
+      "args": ["-y", "@anthropic/mcp-weaviate"],
+      "env": {
+            "WEAVIATE_URL": "http://localhost:8080",
+            "WEAVIATE_API_KEY": "your-api-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add weaviate-mcp
+Restart Claude Code and test:
+```
+User: "List available weaviate commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the weaviate-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `WEAVIATE_URL`: http://localhost:8080
+- `WEAVIATE_API_KEY`: Required - Your api-key
 
-- weaviate
-- vector
-- search
+## Available Tools
 
+- `create_object`
+- `get_object`
+- `search`
+- `delete_object`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with weaviate"
+```
+
+## Documentation
+
+See @anthropic/mcp-weaviate documentation for more details.
 
 
 

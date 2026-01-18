@@ -9,20 +9,39 @@ Full-stack development with modern web technologies
 
 ## Installation
 
-```bash
-claude skill add senior-fullstack
-```
-
-Or download the .skill file:
+### Step 1: Install MCP Server
 
 ```bash
-curl -LO https://github.com/kratos06/lofty-skills/raw/main/skill-files/senior-fullstack.skill
-claude skill add senior-fullstack.skill
+npm install -g @modelcontextprotocol/server-senior-fullstack
+# or
+npm install -g @anthropic/mcp-senior-fullstack
 ```
+
+### Step 2: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "senior-fullstack": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-senior-fullstack"],
+      "env": {
+        // Add required environment variables
+      }
+    }
+  }
+}
+```
+
+### Step 3: Restart Claude Code
+
+After configuration, restart Claude Code to load the MCP server.
 
 ## Quick Start
 
-After installation, the senior-fullstack skill will be available in Claude Code.
+After installation, the senior-fullstack tools will be available in Claude Code.
 
 ## Features
 

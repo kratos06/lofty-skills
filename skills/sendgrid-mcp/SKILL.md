@@ -7,40 +7,65 @@ description: SendGrid email marketing and delivery
 
 SendGrid email marketing and delivery
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-sendgrid
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://app.sendgrid.com/settings/api_keys
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "sendgrid-mcp": {
+    "sendgrid": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sendgrid"]
+      "args": ["-y", "@anthropic/mcp-sendgrid"],
+      "env": {
+            "SENDGRID_API_KEY": "your-api-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add sendgrid-mcp
+Restart Claude Code and test:
+```
+User: "List available sendgrid commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the sendgrid-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `SENDGRID_API_KEY`: Required - Your api-key
 
-- sendgrid
-- email
-- marketing
+## Available Tools
 
+- `send_email`
+- `list_templates`
+- `get_stats`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with sendgrid"
+```
+
+## Documentation
+
+See @anthropic/mcp-sendgrid documentation for more details.
 
 
 

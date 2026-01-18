@@ -7,40 +7,66 @@ description: Discord bot and messaging integration
 
 Discord bot and messaging integration
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-discord
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://discord.com/developers/applications
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "discord-mcp": {
+    "discord": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-discord"]
+      "args": ["-y", "@anthropic/mcp-discord"],
+      "env": {
+            "DISCORD_BOT_TOKEN": "your-bot-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add discord-mcp
+Restart Claude Code and test:
+```
+User: "List available discord commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the discord-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `DISCORD_BOT_TOKEN`: Required - Your bot-token
 
-- discord
-- bot
-- messaging
+## Available Tools
 
+- `send_message`
+- `list_channels`
+- `get_messages`
+- `create_channel`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with discord"
+```
+
+## Documentation
+
+See @anthropic/mcp-discord documentation for more details.
 
 
 

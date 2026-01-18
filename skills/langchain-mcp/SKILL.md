@@ -7,40 +7,65 @@ description: LangChain framework integration
 
 LangChain framework integration
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-langchain
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://smith.langchain.com/settings
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "langchain-mcp": {
+    "langchain": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-langchain"]
+      "args": ["-y", "@anthropic/mcp-langchain"],
+      "env": {
+            "LANGCHAIN_API_KEY": "your-api-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add langchain-mcp
+Restart Claude Code and test:
+```
+User: "List available langchain commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the langchain-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `LANGCHAIN_API_KEY`: Required - Your api-key
 
-- langchain
-- llm
-- framework
+## Available Tools
 
+- `run_chain`
+- `list_chains`
+- `trace`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with langchain"
+```
+
+## Documentation
+
+See @anthropic/mcp-langchain documentation for more details.
 
 
 

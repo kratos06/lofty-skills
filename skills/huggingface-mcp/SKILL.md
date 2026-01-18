@@ -7,40 +7,65 @@ description: Hugging Face models, datasets, and inference API
 
 Hugging Face models, datasets, and inference API
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-huggingface
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://huggingface.co/settings/tokens
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "huggingface-mcp": {
+    "huggingface": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-huggingface"]
+      "args": ["-y", "@anthropic/mcp-huggingface"],
+      "env": {
+            "HUGGINGFACE_API_KEY": "hf_your-api-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add huggingface-mcp
+Restart Claude Code and test:
+```
+User: "List available huggingface commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the huggingface-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `HUGGINGFACE_API_KEY`: Required - hf_Your api-key
 
-- huggingface
-- ml
-- models
+## Available Tools
 
+- `inference`
+- `list_models`
+- `get_model`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with huggingface"
+```
+
+## Documentation
+
+See @anthropic/mcp-huggingface documentation for more details.
 
 ## Source
 

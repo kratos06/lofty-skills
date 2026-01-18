@@ -7,40 +7,66 @@ description: Obsidian notes and knowledge base
 
 Obsidian notes and knowledge base
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-obsidian
+```
+
+### Step 2: Get API Credentials
+
+Configure the required credentials below.
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "obsidian-mcp": {
+    "obsidian": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-obsidian"]
+      "args": ["-y", "@anthropic/mcp-obsidian"],
+      "env": {
+            "OBSIDIAN_VAULT_PATH": "/path/to/vault"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add obsidian-mcp
+Restart Claude Code and test:
+```
+User: "List available obsidian commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the obsidian-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `OBSIDIAN_VAULT_PATH`: /path/to/vault
 
-- obsidian
-- notes
-- markdown
+## Available Tools
 
+- `read_note`
+- `write_note`
+- `search_notes`
+- `list_notes`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with obsidian"
+```
+
+## Documentation
+
+See @anthropic/mcp-obsidian documentation for more details.
 
 
 

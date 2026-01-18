@@ -7,40 +7,66 @@ description: Dropbox cloud storage integration
 
 Dropbox cloud storage integration
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-dropbox
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://www.dropbox.com/developers/apps
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "dropbox-mcp": {
+    "dropbox": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-dropbox"]
+      "args": ["-y", "@anthropic/mcp-dropbox"],
+      "env": {
+            "DROPBOX_ACCESS_TOKEN": "your-access-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add dropbox-mcp
+Restart Claude Code and test:
+```
+User: "List available dropbox commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the dropbox-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `DROPBOX_ACCESS_TOKEN`: Required - Your access-token
 
-- dropbox
-- storage
-- sync
+## Available Tools
 
+- `list_files`
+- `get_file`
+- `upload_file`
+- `search`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with dropbox"
+```
+
+## Documentation
+
+See @anthropic/mcp-dropbox documentation for more details.
 
 
 

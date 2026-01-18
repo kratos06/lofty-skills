@@ -7,40 +7,70 @@ description: Confluence page management with CQL queries and content creation
 
 Confluence page management with CQL queries and content creation
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-atlassian
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://id.atlassian.com/manage-profile/security/api-tokens
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "confluence-mcp": {
+    "confluence": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-confluence"]
+      "args": ["-y", "@anthropic/mcp-atlassian"],
+      "env": {
+            "ATLASSIAN_SITE_URL": "https://your-site.atlassian.net",
+            "ATLASSIAN_USER_EMAIL": "your-email@example.com",
+            "ATLASSIAN_API_TOKEN": "your-api-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add confluence-mcp
+Restart Claude Code and test:
+```
+User: "List available confluence commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the confluence-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `ATLASSIAN_SITE_URL`: Required - https://Your site.atlassian.net
+- `ATLASSIAN_USER_EMAIL`: Required - Your email@example.com
+- `ATLASSIAN_API_TOKEN`: Required - Your api-token
 
-- confluence
-- pages
-- documentation
+## Available Tools
 
+- `getConfluencePage`
+- `createConfluencePage`
+- `updateConfluencePage`
+- `searchConfluenceUsingCql`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with confluence"
+```
+
+## Documentation
+
+See @anthropic/mcp-atlassian documentation for more details.
 
 ## Source
 

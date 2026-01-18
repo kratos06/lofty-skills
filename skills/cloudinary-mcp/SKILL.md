@@ -7,40 +7,70 @@ description: Cloudinary media management
 
 Cloudinary media management
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-cloudinary
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://console.cloudinary.com/settings/api-keys
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "cloudinary-mcp": {
+    "cloudinary": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-cloudinary"]
+      "args": ["-y", "@anthropic/mcp-cloudinary"],
+      "env": {
+            "CLOUDINARY_CLOUD_NAME": "your-cloud-name",
+            "CLOUDINARY_API_KEY": "your-api-key",
+            "CLOUDINARY_API_SECRET": "your-api-secret"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add cloudinary-mcp
+Restart Claude Code and test:
+```
+User: "List available cloudinary commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the cloudinary-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `CLOUDINARY_CLOUD_NAME`: Required - Your cloud-name
+- `CLOUDINARY_API_KEY`: Required - Your api-key
+- `CLOUDINARY_API_SECRET`: Required - Your api-secret
 
-- cloudinary
-- media
-- images
+## Available Tools
 
+- `upload`
+- `search`
+- `transform`
+- `delete`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with cloudinary"
+```
+
+## Documentation
+
+See @anthropic/mcp-cloudinary documentation for more details.
 
 
 

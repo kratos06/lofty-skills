@@ -9,20 +9,39 @@ Write internal communications like status reports, newsletters, FAQs, and incide
 
 ## Installation
 
-```bash
-claude skill add internal-comms
-```
-
-Or download the .skill file:
+### Step 1: Install MCP Server
 
 ```bash
-curl -LO https://github.com/kratos06/lofty-skills/raw/main/skill-files/internal-comms.skill
-claude skill add internal-comms.skill
+npm install -g @modelcontextprotocol/server-internal-comms
+# or
+npm install -g @anthropic/mcp-internal-comms
 ```
+
+### Step 2: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "internal-comms": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-internal-comms"],
+      "env": {
+        // Add required environment variables
+      }
+    }
+  }
+}
+```
+
+### Step 3: Restart Claude Code
+
+After configuration, restart Claude Code to load the MCP server.
 
 ## Quick Start
 
-After installation, the internal-comms skill will be available in Claude Code.
+After installation, the internal-comms tools will be available in Claude Code.
 
 ## Features
 

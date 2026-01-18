@@ -7,40 +7,68 @@ description: Salesforce CRM data and operations integration
 
 Salesforce CRM data and operations integration
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-salesforce
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://help.salesforce.com/s/articleView?id=sf.connected_app_create_api_integration.htm
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "salesforce-mcp": {
+    "salesforce": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-salesforce"]
+      "args": ["-y", "@anthropic/mcp-salesforce"],
+      "env": {
+            "SALESFORCE_INSTANCE_URL": "https://your-instance.salesforce.com",
+            "SALESFORCE_ACCESS_TOKEN": "your-access-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add salesforce-mcp
+Restart Claude Code and test:
+```
+User: "List available salesforce commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the salesforce-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `SALESFORCE_INSTANCE_URL`: Required - https://Your instance.salesforce.com
+- `SALESFORCE_ACCESS_TOKEN`: Required - Your access-token
 
-- salesforce
-- crm
-- sales
+## Available Tools
 
+- `query`
+- `create_record`
+- `update_record`
+- `delete_record`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with salesforce"
+```
+
+## Documentation
+
+See @anthropic/mcp-salesforce documentation for more details.
 
 ## Source
 

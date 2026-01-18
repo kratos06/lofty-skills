@@ -9,20 +9,39 @@ Prompt engineering and LLM optimization
 
 ## Installation
 
-```bash
-claude skill add prompt-engineer
-```
-
-Or download the .skill file:
+### Step 1: Install MCP Server
 
 ```bash
-curl -LO https://github.com/kratos06/lofty-skills/raw/main/skill-files/prompt-engineer.skill
-claude skill add prompt-engineer.skill
+npm install -g @modelcontextprotocol/server-prompt-engineer
+# or
+npm install -g @anthropic/mcp-prompt-engineer
 ```
+
+### Step 2: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "prompt-engineer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-prompt-engineer"],
+      "env": {
+        // Add required environment variables
+      }
+    }
+  }
+}
+```
+
+### Step 3: Restart Claude Code
+
+After configuration, restart Claude Code to load the MCP server.
 
 ## Quick Start
 
-After installation, the prompt-engineer skill will be available in Claude Code.
+After installation, the prompt-engineer tools will be available in Claude Code.
 
 ## Features
 

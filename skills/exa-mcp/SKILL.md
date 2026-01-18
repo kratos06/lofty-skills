@@ -7,40 +7,65 @@ description: Exa AI-powered search engine
 
 Exa AI-powered search engine
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-exa
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://dashboard.exa.ai/api-keys
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "exa-mcp": {
+    "exa": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-exa"]
+      "args": ["-y", "@anthropic/mcp-exa"],
+      "env": {
+            "EXA_API_KEY": "your-api-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add exa-mcp
+Restart Claude Code and test:
+```
+User: "List available exa commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the exa-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `EXA_API_KEY`: Required - Your api-key
 
-- exa
-- search
-- ai
+## Available Tools
 
+- `search`
+- `find_similar`
+- `get_contents`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with exa"
+```
+
+## Documentation
+
+See @anthropic/mcp-exa documentation for more details.
 
 
 

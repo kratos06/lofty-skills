@@ -7,40 +7,65 @@ description: Brave Search API integration
 
 Brave Search API integration
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-brave-search
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://api.search.brave.com/app/keys
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "brave-search-mcp": {
+    "brave-search": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-brave-search"]
+      "args": ["-y", "@anthropic/mcp-brave-search"],
+      "env": {
+            "BRAVE_API_KEY": "your-api-key"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add brave-search-mcp
+Restart Claude Code and test:
+```
+User: "List available brave-search commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the brave-search-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `BRAVE_API_KEY`: Required - Your api-key
 
-- brave
-- search
-- privacy
+## Available Tools
 
+- `web_search`
+- `news_search`
+- `image_search`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with brave-search"
+```
+
+## Documentation
+
+See @anthropic/mcp-brave-search documentation for more details.
 
 ## Source
 

@@ -7,40 +7,63 @@ description: arXiv academic papers search
 
 arXiv academic papers search
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-arxiv
+```
+
+### Step 2: Get API Credentials
+
+Configure the required credentials below.
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "arxiv-mcp": {
+    "arxiv": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-arxiv"]
+      "args": ["-y", "@anthropic/mcp-arxiv"],
+      "env": {}
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add arxiv-mcp
+Restart Claude Code and test:
+```
+User: "List available arxiv commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the arxiv-mcp tools will be available in Claude Code.
-
-## Features
-
-- arxiv
-- papers
-- research
+## Environment Variables
 
 
+
+## Available Tools
+
+- `search`
+- `get_paper`
+- `download_pdf`
+
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with arxiv"
+```
+
+## Documentation
+
+See @anthropic/mcp-arxiv documentation for more details.
 
 
 

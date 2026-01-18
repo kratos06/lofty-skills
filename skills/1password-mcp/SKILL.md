@@ -7,40 +7,65 @@ description: 1Password password management
 
 1Password password management
 
-## Installation
+## Prerequisites
 
-### Option 1: Add to Claude Settings
+### Step 1: Install MCP Server
 
-Add to your Claude Code settings (settings.json or via `claude mcp add`):
+```bash
+npm install -g @anthropic/mcp-1password
+```
+
+### Step 2: Get API Credentials
+
+Get your credentials from: https://developer.1password.com/docs/service-accounts/
+
+### Step 3: Configure Claude Code
+
+Add to your Claude settings file (`~/.claude/settings.json` or project `.claude/settings.local.json`):
 
 ```json
 {
   "mcpServers": {
-    "1password-mcp": {
+    "1password": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-1password"]
+      "args": ["-y", "@anthropic/mcp-1password"],
+      "env": {
+            "OP_SERVICE_ACCOUNT_TOKEN": "your-token"
+      }
     }
   }
 }
 ```
 
-### Option 2: Install as Skill
+### Step 4: Verify Installation
 
-```bash
-claude skill add 1password-mcp
+Restart Claude Code and test:
+```
+User: "List available 1password commands"
 ```
 
-## Quick Start
+---
 
-After configuration, the 1password-mcp tools will be available in Claude Code.
+## Environment Variables
 
-## Features
+- `OP_SERVICE_ACCOUNT_TOKEN`: Required - Your token
 
-- 1password
-- passwords
-- security
+## Available Tools
 
+- `get_item`
+- `list_items`
+- `list_vaults`
 
+## Quick Start Examples
+
+### Example 1
+```
+User: "Help me with 1password"
+```
+
+## Documentation
+
+See @anthropic/mcp-1password documentation for more details.
 
 
 
